@@ -15,7 +15,7 @@ dotenv.config();
 
 const app = express();
 const port = process.env.PORT || 3000;
-const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5500';
+const frontendUrl = process.env.FRONTEND_URL || 'https://portfolio-azure-one-24emsworuc.vercel.app/';
 
 const allowedOrigins = (process.env.ALLOWED_ORIGINS || process.env.FRONTEND_URL || '')
   .split(',')
