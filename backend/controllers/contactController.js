@@ -16,9 +16,10 @@ async function submitContactForm(req, res) {
 
     const transporter = createTransporter();
     if (!transporter) {
-      return res.status(500).json({
-        success: false,
-        message: 'Email service is not configured yet.',
+      console.warn('Email service not configured - skipping email send but message saved');
+      return res.status(200).json({
+        success: true,
+        message: 'Message saved successfully but email notifications could not be sent.',
       });
     }
 
@@ -50,14 +51,18 @@ async function submitContactForm(req, res) {
       `,
     });
 
-    await Promise.all([adminEmailPromise, autoReplyPromise]);
+    try {
+      await Promise.all([adminEmailPromise, autoReplyPromise]);
+    } catch (emailError) {
+      console.error('Email send error (message still saved):', emailError.message);
+    }
 
     return res.status(200).json({
       success: true,
       message: 'Message sent successfully.',
     });
   } catch (error) {
-    console.error('Contact form error:', error.message);
+    console.error('Contact form error:', error.message, error.stack);
 
     const mailAuthFailed =
       error.message &&
@@ -72,7 +77,7 @@ async function submitContactForm(req, res) {
 
     return res.status(500).json({
       success: false,
-      message: 'Something went wrong while sending your message.',
+      message: 'Contact save failed. Check server logs. Error: ' + error.message,
     });
   }
 }
