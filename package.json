@@ -1,0 +1,36 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "Personal portfolio built with Express, HTML, Tailwind CSS and JavaScript.",
+  "main": "backend/server.js",
+  "scripts": {
+    "start": "npm run backend",
+    "backend": "node ./backend/server.js",
+    "backend:dev": "nodemon ./backend/server.js",
+    "frontend": "serve ./frontend -l 5500",
+    "dev": "npm run backend:dev",
+    "dev:all": "concurrently \"npm run backend\" \"npm run frontend\""
+  },
+  "keywords": [
+    "portfolio",
+    "express",
+    "tailwind"
+  ],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.1",
+    "express": "^5.2.1",
+    "express-session": "^1.19.0",
+    "geoip-lite": "^2.0.1",
+    "mongoose": "^9.4.1",
+    "nodemailer": "^8.0.5",
+    "nodemon": "^3.1.14"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1",
+    "serve": "^14.2.6"
+  }
+}

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tushal Jadhav | Portfolio</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-[#040B1F] text-slate-100">
+  <div class="relative overflow-hidden">
+    <header class="relative z-10">
+      <nav class="max-w-7xl mx-auto px-6 md:px-10 py-6 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="#home" class="group inline-flex h-11 w-11 items-center justify-center overflow-hidden rounded-xl border border-sky-400/40 bg-slate-900/90 shadow-lg shadow-sky-500/20 transition-all duration-300 hover:-translate-y-0.5 hover:border-sky-300/70 hover:shadow-sky-500/35" aria-label="Tushal Jadhav home">
+            <img src="images/logo.png" alt="Tushal Jadhav logo" class="h-full w-full object-cover" />
+          </a>
+          <h1 class="text-xl font-semibold tracking-wide bg-gradient-to-r from-sky-300 to-indigo-300 bg-clip-text text-transparent">Tushal Jadhav</h1>
+        </div>
+        <div class="hidden lg:flex items-center gap-10 text-slate-300">
+          <a href="#about" class="hover:text-white transition">Home</a>
+          <a href="#services" class="hover:text-white transition">Services</a>
+          <a href="#portfolio" class="hover:text-white transition">Portfolio</a>
+          <a href="#blog" class="hover:text-white transition">Blog</a>
+          <a href="#contact" class="hover:text-white transition">Contact</a>
+        </div>
+        <button id="nav-toggle" class="lg:hidden inline-flex items-center justify-center w-11 h-11 rounded-full border border-slate-700 text-slate-300">
+          <span class="text-2xl">☰</span>
+        </button>
+      </nav>
+      <div id="mobile-menu" class="lg:hidden hidden px-6 pb-6">
+        <div class="space-y-3 rounded-3xl border border-slate-700 bg-slate-950/40 p-5">
+          <a href="#about" class="block text-slate-200 hover:text-white">Home</a>
+          <a href="#services" class="block text-slate-200 hover:text-white">Services</a>
+          <a href="#portfolio" class="block text-slate-200 hover:text-white">Portfolio</a>
+          <a href="#blog" class="block text-slate-200 hover:text-white">Blog</a>
+          <a href="#contact" class="block text-slate-200 hover:text-white">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <main class="relative z-10">
+      <section id="about" class="max-w-7xl mx-auto px-6 md:px-10 pt-16 pb-24 grid lg:grid-cols-2 gap-12 items-center">
+        <div class="space-y-8">
+          <div class="inline-flex items-center gap-2 rounded-full border border-sky-400/20 bg-sky-500/10 px-4 py-2 text-sm text-sky-300">
+            <span class="block w-2 h-2 rounded-full bg-sky-400"></span>
+            Build everything
+          </div>
+          <div>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+              Unveiling My Professional Odyssey:<br>
+              Portfolio Highlights
+            </h1>
+            <p class="mt-6 max-w-2xl text-slate-300 leading-8">
+              I design beautiful digital experiences with modern interfaces, fast performance, and strong branding for ambitious companies and startups.
+            </p>
+          </div>
+          <div class="flex flex-wrap gap-4">
+            <a href="#contact" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-sky-500/20 transition hover:-translate-y-0.5">
+              Get Started
+            </a>
+            <a href="#portfolio" class="inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-950/80 px-8 py-4 text-base text-slate-100 transition hover:border-slate-500">
+              View Portfolio
+            </a>
+          </div>
+          <div class="grid sm:grid-cols-3 gap-4">
+            <div class="rounded-3xl border border-slate-700 bg-slate-950/70 p-5">
+              <p class="count-up text-3xl font-semibold text-white" data-count="5" data-suffix="+">0+</p>
+              <p class="mt-2 text-sm text-slate-400">Technologies Learned</p>
+            </div>
+            <div class="rounded-3xl border border-slate-700 bg-slate-950/70 p-5">
+              <p class="count-up text-3xl font-semibold text-white" data-count="8" data-suffix="+">0+</p>
+              <p class="mt-2 text-sm text-slate-400">Completed Projects</p>
+            </div>
+            <div class="rounded-3xl border border-slate-700 bg-slate-950/70 p-5">
+              <p class="count-up text-3xl font-semibold text-white" data-count="6" data-suffix="+">0+</p>
+              <p class="mt-2 text-sm text-slate-400">Certifications Earned</p>
+            </div>
+          </div>
+        </div>
+        <div class="relative">
+          <img src="https://themewagon.github.io/venus-nextjs/images/hero/hero-profile-1.jpg" alt="Portfolio hero" class="w-full rounded-[32px] border border-slate-700 shadow-2xl shadow-slate-950/60" />
+          <div class="absolute left-6 top-6 rounded-3xl border border-white/10 bg-slate-950/70 p-5 backdrop-blur-xl">
+            <p class="text-xs uppercase tracking-[0.35em] text-sky-300">Portfolio</p>
+            <h2 class="mt-3 text-xl font-semibold text-white">Trusted design partner.</h2>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+        <div class="text-center max-w-3xl mx-auto">
+          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Our Services</p>
+          <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Services specifically designed to meet your business needs</h2>
+          <p class="mt-4 text-slate-400">I offer product design, UX research, marketing websites, landing pages and portfolio experiences that help your brand stand out.</p>
+        </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <article class="rounded-[32px] bg-slate-950/70 border border-slate-700 p-8">
+            <img src="https://themewagon.github.io/venus-nextjs/images/services/ux-design-product_1.svg" class="h-16 w-16" alt="UX & Product Design" />
+            <h3 class="mt-8 text-2xl font-semibold text-white">UX & Product Design</h3>
+            <p class="mt-4 text-slate-400">Create elegant interfaces, usable experiences and product systems that look stunning on desktop and mobile.</p>
+            <a href="#contact" class="mt-6 inline-flex text-sky-300 hover:text-white">Get Started →</a>
+          </article>
+          <article class="rounded-[32px] bg-slate-950/70 border border-slate-700 p-8">
+            <img src="https://themewagon.github.io/venus-nextjs/images/services/perfomance-optimization.svg" class="h-16 w-16" alt="Performance Optimization" />
+            <h3 class="mt-8 text-2xl font-semibold text-white">Performance Optimization</h3>
+            <p class="mt-4 text-slate-400">Improve speed, accessibility, and reliability with front-end best practices and optimized build output.</p>
+            <a href="#contact" class="mt-6 inline-flex text-sky-300 hover:text-white">Get Started →</a>
+          </article>
+          <article class="rounded-[32px] bg-slate-950/70 border border-slate-700 p-8">
+            <img src="https://themewagon.github.io/venus-nextjs/images/services/ux-design-product_2.svg" class="h-16 w-16" alt="Product Strategy" />
+            <h3 class="mt-8 text-2xl font-semibold text-white">Product Strategy</h3>
+            <p class="mt-4 text-slate-400">Plan product direction, landing pages, and marketing that connect with customers and grow conversions.</p>
+            <a href="#contact" class="mt-6 inline-flex text-sky-300 hover:text-white">Get Started →</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="portfolio" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+        <div class="text-center max-w-3xl mx-auto">
+          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Portfolio</p>
+          <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Explore my portfolio showcase</h2>
+          <p class="mt-4 text-slate-400">A curated collection of recent design and development work across brands, apps and web experiences.</p>
+        </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <article class="group overflow-hidden rounded-[32px] border border-slate-700 bg-slate-950/70">
+            <img src="https://themewagon.github.io/venus-nextjs/images/portfolio/portfolio-1.png" alt="Cozycasa" class="w-full object-cover h-72 transition duration-500 group-hover:scale-105" />
+            <div class="p-8">
+              <span class="text-sm uppercase tracking-[0.35em] text-slate-400">Cozycasa</span>
+              <h3 class="mt-4 text-2xl font-semibold text-white">Architecture Landing Page</h3>
+              <p class="mt-3 text-slate-400">Brand experience for a modern interior design studio.</p>
+            </div>
+          </article>
+          <article class="group overflow-hidden rounded-[32px] border border-slate-700 bg-slate-950/70">
+            <img src="https://themewagon.github.io/venus-nextjs/images/portfolio/portfolio-2.png" alt="Mars" class="w-full object-cover h-72 transition duration-500 group-hover:scale-105" />
+            <div class="p-8">
+              <span class="text-sm uppercase tracking-[0.35em] text-slate-400">Mars</span>
+              <h3 class="mt-4 text-2xl font-semibold text-white">Mobile App Experience</h3>
+              <p class="mt-3 text-slate-400">Designing clean interactions for product discovery.</p>
+            </div>
+          </article>
+          <article class="group overflow-hidden rounded-[32px] border(border-slate-700) bg-slate-950/70">
+            <img src="https://themewagon.github.io/venus-nextjs/images/portfolio/portfolio-3.png" alt="Everyday Humans" class="w-full object-cover h-72 transition duration-500 group-hover:scale-105" />
+            <div class="p-8">
+              <span class="text-sm uppercase tracking-[0.35em] text-slate-400">Everyday Humans</span>
+              <h3 class="mt-4 text-2xl font-semibold text-white">Brand & Marketing</h3>
+              <p class="mt-3 text-slate-400">A cheerful landing page for a lifestyle brand.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="blog" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+        <div class="text-center max-w-3xl mx-auto">
+          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Insights</p>
+          <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Latest blog & news</h2>
+          <p class="mt-4 text-slate-400">I share ideas on design systems, product launches, and modern front-end development.</p>
+        </div>
+        <div class="mt-12 grid gap-6 lg:grid-cols-3">
+          <article class="rounded-[32px] border border-slate-700 bg-slate-950/70 p-8">
+            <span class="text-sm uppercase tracking-[0.35em] text-slate-500">08 Nov 2024</span>
+            <h3 class="mt-4 text-2xl font-semibold text-white">Business from the brink of ruin by optimizing our website</h3>
+            <p class="mt-4 text-slate-400">How small UX changes can deliver measurable improvements for growth.</p>
+          </article>
+          <article class="rounded-[32px] border border-slate-700 bg-slate-950/70 p-8">
+            <span class="text-sm uppercase tracking-[0.35em] text-slate-500">08 Nov 2024</span>
+            <h3 class="mt-4 text-2xl font-semibold text-white">The work is top-notch and I consistently outrank all my competitors</h3>
+            <p class="mt-4 text-slate-400">A case study around customer trust, conversion, and creative direction.</p>
+          </article>
+          <article class="rounded-[32px] border border-slate-700 bg-slate-950/70 p-8">
+            <span class="text-sm uppercase tracking-[0.35em] text-slate-500">08 Nov 2024</span>
+            <h3 class="mt-4 text-2xl font-semibold text-white">Grow my business through organic search and marketing</h3>
+            <p class="mt-4 text-slate-400">A practical guide to content-led landing pages and user flow optimization.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+        <div class="grid gap-10 lg:grid-cols-2">
+          <div class="rounded-[32px] border border-slate-700 bg-slate-950/80 p-10">
+            <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Contact</p>
+            <h2 class="mt-4 text-3xl font-bold text-white">Let’s discuss your project and take it to the next level.</h2>
+            <div class="mt-10 grid gap-6">
+              <div class="rounded-3xl bg-slate-900/80 p-6">
+                <p class="text-sm text-slate-400">Phone</p>
+                <p class="mt-3 text-lg font-semibold text-white">+323-25-8964</p>
+              </div>
+              <div class="rounded-3xl bg-slate-900/80 p-6">
+                <p class="text-sm text-slate-400">Email</p>
+                <p class="mt-3 text-lg font-semibold text-white">me@landingpro.com</p>
+              </div>
+              <div class="rounded-3xl bg-slate-900/80 p-6">
+                <p class="text-sm text-slate-400">Location</p>
+                <p class="mt-3 text-lg font-semibold text-white">Mark Avenue, Dallas Road, New York</p>
+              </div>
+            </div>
+          </div>
+          <form class="rounded-[32px] border border-slate-700 bg-slate-950/80 p-10 space-y-6">
+            <div>
+              <label class="block text-sm text-slate-400">Name</label>
+              <input type="text" class="mt-3 w-full rounded-3xl border border-slate-700 bg-slate-900/90 px-5 py-4 text-white focus:border-sky-500 outline-none" placeholder="Your name" />
+            </div>
+            <div>
+              <label class="block text-sm text-slate-400">Email</label>
+              <input type="email" class="mt-3 w-full rounded-3xl border border-slate-700 bg-slate-900/90 px-5 py-4 text-white focus:border-sky-500 outline-none" placeholder="you@example.com" />
+            </div>
+            <div>
+              <label class="block text-sm text-slate-400">Message</label>
+              <textarea rows="5" class="mt-3 w-full rounded-3xl border border-slate-700 bg-slate-900/90 px-5 py-4 text-white focus:border-sky-500 outline-none" placeholder="Tell me about your project"></textarea>
+            </div>
+            <button type="submit" class="inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-8 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5">
+              Submit Inquiry
+            </button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="border-t border-slate-800 py-10">
+      <div class="max-w-7xl mx-auto px-6 md:px-10 flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <p class="text-sm uppercase tracking-[0.35em] text-slate-500">Ready to get started?</p>
+          <p class="mt-3 text-2xl font-semibold text-white">Let’s work together on your next project.</p>
+        </div>
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+          <a href="#contact" class="rounded-full bg-white/10 px-6 py-3 text-sm font-semibold text-white hover:bg-white/15">Get Started</a>
+          <a href="mailto:me@landingpro.com" class="rounded-full border border-slate-700 px-6 py-3 text-sm font-semibold text-slate-100 hover:border-slate-500">Email Me</a>
+        </div>
+      </div>
+      <div class="mt-10 border-t border-slate-800 pt-8 text-center text-sm text-slate-500">
+        © 2026 All rights reserved. Made with Express, HTML, Tailwind CSS.
+      </div>
+    </footer>
+  </div>
+  <script src="js/main.js"></script>
+</body>
+</html>

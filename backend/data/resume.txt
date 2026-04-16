@@ -1,0 +1,3 @@
+Replace this file with your real resume.
+
+Current file is a placeholder so /api/download-resume works immediately.
