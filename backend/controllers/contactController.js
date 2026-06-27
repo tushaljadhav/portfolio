@@ -11,8 +11,24 @@ async function submitContactForm(req, res) {
     });
   }
 
+  // Basic validation
+  const nameTrim = name.trim();
+  const emailTrim = email.trim().toLowerCase();
+  const messageTrim = message.trim();
+
+  if (nameTrim.length < 2) {
+    return res.status(400).json({ success: false, message: 'Name must be at least 2 characters.' });
+  }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailTrim)) {
+    return res.status(400).json({ success: false, message: 'Please provide a valid email address.' });
+  }
+  if (messageTrim.length < 10) {
+    return res.status(400).json({ success: false, message: 'Message must be at least 10 characters.' });
+  }
+
   try {
-    await Contact.create({ name, email, message });
+    await Contact.create({ name: nameTrim, email: emailTrim, message: messageTrim });
 
     const transporter = createTransporter();
     if (!transporter) {
@@ -28,21 +44,21 @@ async function submitContactForm(req, res) {
     const adminEmailPromise = transporter.sendMail({
       from: process.env.MAIL_USER,
       to: adminEmail,
-      subject: `New Portfolio Contact from ${name}`,
+      subject: `New Portfolio Contact from ${nameTrim}`,
       html: `
         <h2>New Contact Form Submission</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Message:</strong> ${message}</p>
+        <p><strong>Name:</strong> ${nameTrim}</p>
+        <p><strong>Email:</strong> ${emailTrim}</p>
+        <p><strong>Message:</strong> ${messageTrim}</p>
       `,
     });
 
     const autoReplyPromise = transporter.sendMail({
       from: process.env.MAIL_USER,
-      to: email,
+      to: emailTrim,
       subject: 'Thanks for contacting me!',
       html: `
-        <h2>Hello ${name},</h2>
+        <h2>Hello ${nameTrim},</h2>
         <p>Thank you for reaching out through my portfolio website.</p>
         <p>I received your message and will reply soon.</p>
         <br />
@@ -82,6 +98,40 @@ async function submitContactForm(req, res) {
   }
 }
 
+// Admin-only controllers
+async function getContacts(req, res) {
+  try {
+    const contacts = await Contact.find().sort({ createdAt: -1 });
+    return res.status(200).json({ success: true, count: contacts.length, data: contacts });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Unable to fetch contact messages.' });
+  }
+}
+
+async function deleteContact(req, res) {
+  try {
+    const deleted = await Contact.findByIdAndDelete(req.params.id);
+    if (!deleted) {
+      return res.status(404).json({ success: false, message: 'Message not found.' });
+    }
+    return res.status(200).json({ success: true, message: 'Message deleted successfully.' });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Unable to delete message: ' + error.message });
+  }
+}
+
+async function clearAllContacts(req, res) {
+  try {
+    await Contact.deleteMany({});
+    return res.status(200).json({ success: true, message: 'All messages cleared successfully.' });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Unable to clear messages: ' + error.message });
+  }
+}
+
 module.exports = {
   submitContactForm,
+  getContacts,
+  deleteContact,
+  clearAllContacts,
 };

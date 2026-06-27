@@ -5,77 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tushal Jadhav | Portfolio</title>
   <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link rel="stylesheet" href="css/style.css" />    <style>
-      .progress-bar-fill {
-        transition: width 1s ease-out;
-      }
-      .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      html {
-        scroll-behavior: smooth;
-      }
-    </style></head>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
 <body class="bg-[#040B1F] text-slate-100">
+  <!-- Scroll Progress Indicator -->
+  <div id="scroll-progress"></div>
+  
+  <!-- Fullscreen Floating Coding Particles Background -->
+  <canvas id="particles-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+
   <div class="relative overflow-hidden">
-    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent border-b border-slate-800/50 transition-all duration-300">
-<nav class="py-4 md:py-6">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex justify-between items-center gap-3">
+    
+    <!-- HEADER / NAVIGATION -->
+    <header id="navbar" class="fixed top-0 left-0 right-0 z-50 bg-transparent border-b border-slate-800/50 transition-all duration-300 backdrop-blur-md">
+      <nav class="py-4 md:py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 flex justify-between items-center gap-3">
 
-    <!-- LEFT LOGO -->
-    <a href="#home" class="flex items-center gap-3" aria-label="Tushal Jadhav home">
-      <span class="relative inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 p-[2px] shadow-lg shadow-sky-500/25">
-        <span class="flex h-full w-full items-center justify-center overflow-hidden rounded-[10px] bg-[#040B1F]">
-          <img src="images/logo.png" alt="Tushal Jadhav logo" class="h-full w-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
-          <span class="hidden h-full w-full items-center justify-center text-sm font-bold text-sky-300">TJ</span>
-        </span>
-      </span>
-      <h1 class="text-base sm:text-xl font-semibold">Tushal Jadhav</h1>
-    </a>
+          <!-- Left Logo -->
+          <a href="#home" class="flex items-center gap-3" aria-label="Tushal Jadhav home">
+            <span class="relative inline-flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 p-[2px] shadow-lg shadow-sky-500/25">
+              <span class="flex h-full w-full items-center justify-center overflow-hidden rounded-[10px] bg-[#040B1F]">
+                <img src="images/logo.png" alt="Tushal Jadhav logo" class="h-full w-full object-cover" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" />
+                <span class="hidden h-full w-full items-center justify-center text-sm font-bold text-sky-350">TJ</span>
+              </span>
+            </span>
+            <h1 class="text-base sm:text-xl font-semibold">Tushal Jadhav</h1>
+          </a>
 
-    <!-- MENU -->
-    <ul class="hidden md:flex gap-10 text-gray-300 items-center">
-      <li class=" hover:text-sky-400 cursor-pointer nav-link" data-section="home">Home</li>
-      <li class="hover:text-sky-400 cursor-pointer nav-link transition" data-section="about">About</li>
-      <li class="hover:text-sky-400 cursor-pointer nav-link transition" data-section="educations">Educations</li>
-      <li class="hover:text-sky-400 cursor-pointer nav-link transition" data-section="projects">Projects</li>
-      <li class="hover:text-sky-400 cursor-pointer nav-link transition" data-section="certifications">Certifications</li>
-      <li class="hover:text-sky-400 cursor-pointer nav-link transition" data-section="contact">Contact</li>
-    </ul>
+          <!-- Navigation Links -->
+          <ul class="hidden md:flex gap-10 text-slate-300 items-center font-medium">
+            <li class="hover:text-sky-400 cursor-pointer nav-link transition-all" data-section="home">Home</li>
+            <li class="hover:text-sky-400 cursor-pointer nav-link transition-all" data-section="about">About</li>
+            <li class="hover:text-sky-400 cursor-pointer nav-link transition-all" data-section="educations">Educations</li>
+            <li class="hover:text-sky-400 cursor-pointer nav-link transition-all" data-section="projects">Projects</li>
+            <li class="hover:text-sky-400 cursor-pointer nav-link transition-all" data-section="certifications">Certifications</li>
+            <li class="hover:text-sky-400 cursor-pointer nav-link transition-all" data-section="contact">Contact</li>
+          </ul>
 
-    <button id="nav-toggle" type="button" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 bg-slate-900/70 text-slate-200" aria-label="Toggle navigation">
-      <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
-        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
-    </button>
+          <!-- Mobile Toggle -->
+          <button id="nav-toggle" type="button" class="md:hidden inline-flex h-10 w-10 items-center justify-center rounded-lg border border-slate-700 bg-slate-900/70 text-slate-200" aria-label="Toggle navigation">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
 
-  </div>
-</nav>
-<div id="mobile-menu" class="md:hidden hidden border-t border-slate-800/80 bg-[#040B1F]/95 backdrop-blur">
-  <div class="px-4 py-3 space-y-1">
-    <a href="#home" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="home">Home</a>
-    <a href="#about" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="about">About</a>
-    <a href="#educations" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="educations">Educations</a>
-    <a href="#projects" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="projects">Projects</a>
-    <a href="#certifications" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="certifications">Certifications</a>
-    <a href="#contact" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="contact">Contact</a>
-  </div>
-</div>
+        </div>
+      </nav>
+
+      <!-- Mobile Dropdown Menu -->
+      <div id="mobile-menu" class="md:hidden hidden border-t border-slate-800/80 bg-[#040B1F]/95 backdrop-blur-xl">
+        <div class="px-4 py-3 space-y-1">
+          <a href="#home" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="home">Home</a>
+          <a href="#about" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="about">About</a>
+          <a href="#educations" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="educations">Educations</a>
+          <a href="#projects" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="projects">Projects</a>
+          <a href="#certifications" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="certifications">Certifications</a>
+          <a href="#contact" class="nav-link block rounded-lg px-3 py-2 text-slate-200 hover:bg-slate-800/70" data-section="contact">Contact</a>
+        </div>
+      </div>
     </header>
 
     <main class="relative z-10 pt-20 md:pt-24">
-      <section id="home" class="max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-8 md:pt-10 pb-20 grid lg:grid-cols-2 gap-10 lg:gap-12 items-center">
-        <div class="space-y-8">
+      
+      <!-- HERO SECTION -->
+      <section id="home" class="relative max-w-7xl mx-auto px-4 sm:px-6 md:px-10 pt-8 md:pt-10 pb-20 grid lg:grid-cols-2 gap-10 lg:gap-12 items-center overflow-hidden">
+        <div class="space-y-8 relative z-10">
           <div>
-            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight text-white">
               Hello, I’m Tushal Jadhav<br>
               <span id="changing-title" class="text-sky-400">Software Engineer</span>
             </h1>
-            <p class="mt-5 max-w-2xl text-slate-300 leading-7 sm:leading-8">
+            <p class="mt-5 max-w-2xl text-slate-350 leading-7 sm:leading-8 text-sm sm:text-base">
               I am a developer who creates modern web applications with a focus on clean code and simple design. I like building fast and user-friendly interfaces that provide a smooth experience. I enjoy working on real-world projects and continuously improving my skills to develop better and more efficient solutions.
             </p>
           </div>
@@ -87,129 +87,108 @@
               Download Resume
             </a>
           </div>
+          
+          <!-- Key metrics grid -->
           <div class="grid sm:grid-cols-3 gap-4">
-            <div class="rounded-3xl border border-slate-700 bg-slate-950/70 p-5">
+            <div class="rounded-3xl border border-slate-800 bg-slate-950/70 p-5 shadow-lg">
               <p class="count-up text-3xl font-semibold bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent" data-count="15" data-suffix="+">0+</p>
-              <p class="mt-2 text-sm text-slate-400">Technologies</p>
+              <p class="mt-2 text-xs text-slate-400">Technologies</p>
             </div>
-            <div class="rounded-3xl border border-slate-700 bg-slate-950/70 p-5">
+            <div class="rounded-3xl border border-slate-800 bg-slate-950/70 p-5 shadow-lg">
               <p class="count-up text-3xl font-semibold bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent" data-count="10" data-suffix="+">0+</p>
-              <p class="mt-2 text-sm text-slate-400">Completed</p>
+              <p class="mt-2 text-xs text-slate-400">Completed Projects</p>
             </div>
-            <div class="rounded-3xl border border-slate-700 bg-slate-950/70 p-5">
+            <div class="rounded-3xl border border-slate-800 bg-slate-950/70 p-5 shadow-lg">
               <p class="count-up text-3xl font-semibold bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent" data-count="15" data-suffix="+">0+</p>
-              <p class="mt-2 text-sm text-slate-400">Certifications</p>
+              <p class="mt-2 text-xs text-slate-400">Certifications</p>
             </div>
           </div>
         </div>
-        <div class="relative">
-          <!-- <img src="https://themewagon.github.io/venus-nextjs/images/hero/hero-profile-1.jpg" alt="Portfolio hero" class="w-full rounded-[32px] border border-slate-700 shadow-2xl shadow-slate-950/60" /> -->
-          <img src="images/Confident style in outdoor portrait.png" alt="Portfolio hero" class="w-full rounded-[32px] border border-slate-700 shadow-2xl shadow-slate-950/60" />
 
+        <div class="relative flex justify-center">
+          <div class="relative w-full max-w-md aspect-square rounded-[36px] overflow-hidden border border-slate-850 shadow-2xl tilt-card">
+            <img src="images/tushal.jpg" alt="Portfolio hero" class="w-full h-full object-cover" />
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
+          </div>
         </div>
       </section>
 
-      <section id="about" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
-        <div class="text-center max-w-4xl mx-auto">
-          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">About</p>
+      <!-- ABOUT SECTION -->
+      <section id="about" class="max-w-7xl mx-auto px-6 md:px-10 py-20 border-t border-slate-900/60">
+        <div class="text-center max-w-4xl mx-auto mb-14">
+          <p class="text-xs uppercase tracking-[0.4em] text-sky-400 font-bold">About Me</p>
+          <h2 class="mt-4 text-3xl sm:text-4xl font-bold text-white leading-tight">My Profile & Skills</h2>
         </div>
 
-        <div class="mt-14 grid gap-10 lg:grid-cols-2">
-          <div class="rounded-[32px] border border-slate-700 bg-slate-950/70 p-8 shadow-2xl shadow-slate-950/30">
-            <div class="flex flex-col items-center gap-10 lg:flex-row lg:items-start">
-              <div class="flex-shrink-0 -translate-y-6">
-                <div class="w-44 h-44 rounded-full border-4 border-white/90 bg-slate-900 p-1 shadow-2xl shadow-slate-950/40">
-                  <!-- <img src="https://themewagon.github.io/venus-nextjs/images/hero/hero-profile-1.jpg" alt="Profile" class="h-full w-full rounded-full object-cover" /> -->
-                  <img src="images/Confident style in outdoor portrait.png" alt="Profile" class="h-full w-full rounded-full object-cover" />
+        <div class="grid gap-10 lg:grid-cols-2">
+          <!-- Left side Card: Info and Skills -->
+          <div class="rounded-[32px] border border-slate-850 bg-slate-950/70 p-8 shadow-2xl space-y-8">
+            <div class="flex flex-col items-center gap-8 lg:flex-row lg:items-start">
+              <div class="flex-shrink-0">
+                <div class="w-32 h-32 rounded-full border-4 border-slate-800 bg-slate-900 overflow-hidden shadow-xl">
+                  <img src="images/tushal.jpg" alt="Profile" class="h-full w-full object-cover" />
                 </div>
               </div>
               <div class="w-full lg:w-auto">
-                <div class="grid gap-4 text-slate-400">
-                  <div class="grid grid-cols-[auto_1fr] gap-6 items-start">
+                <div class="grid gap-4 text-slate-400 text-sm">
+                  <div class="grid grid-cols-[80px_1fr] gap-4">
                     <span>Name:</span>
-                    <span class="text-white">Tushal Jadhav</span>
+                    <span class="text-white font-semibold">Tushal Jadhav</span>
                   </div>
-                  <div class="grid grid-cols-[auto_1fr] gap-6 items-start">
+                  <div class="grid grid-cols-[80px_1fr] gap-4">
                     <span>Job Role:</span>
-                    <span class="text-white">Software Engineer</span>
+                    <span class="text-white font-semibold">Software Engineer</span>
                   </div>
-                  <div class="grid grid-cols-[auto_1fr] gap-6 items-start">
+                  <div class="grid grid-cols-[80px_1fr] gap-4">
                     <span>Experience:</span>
-                    <span class="text-white">Fresher</span>
+                    <span class="text-white font-semibold">Fresher</span>
                   </div>
-                  <div class="grid grid-cols-[auto_1fr] gap-6 items-start">
+                  <div class="grid grid-cols-[80px_1fr] gap-4">
                     <span>Address:</span>
-                    <span class="text-white">Mumbai, India</span>
+                    <span class="text-white font-semibold">Mumbai, India</span>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div class="space-y-5">
-              <div>
-                <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Frontend Development 95%</p>
-                <div class="mt-3 h-3 rounded-full bg-slate-800 overflow-hidden">
-                  <div class="progress-bar-fill h-full w-0 rounded-full bg-sky-400" data-width="95%"></div>
-                </div>
-              </div>
-              <div>
-                <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Backend Development 85%</p>
-                <div class="mt-3 h-3 rounded-full bg-slate-800 overflow-hidden">
-                  <div class="progress-bar-fill h-full w-0 rounded-full bg-sky-400" data-width="85%"></div>
-                </div>
-              </div>
-              <div>
-                <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Database Management 90%</p>
-                <div class="mt-3 h-3 rounded-full bg-slate-800 overflow-hidden">
-                  <div class="progress-bar-fill h-full w-0 rounded-full bg-sky-400" data-width="90%"></div>
-                </div>
-              </div>
-              <div>
-                <p class="text-sm uppercase tracking-[0.35em] text-slate-400">Tools & Workflow 85%</p>
-                <div class="mt-3 h-3 rounded-full bg-slate-800 overflow-hidden">
-                  <div class="progress-bar-fill h-full w-0 rounded-full bg-sky-400" data-width="85%"></div>
-                </div>
-              </div>
-              <div>
-                <p class="text-sm uppercase tracking-[0.35em] text-slate-400">API & Integration 80%</p>
-                <div class="mt-3 h-3 rounded-full bg-slate-800 overflow-hidden">
-                  <div class="progress-bar-fill h-full w-0 rounded-full bg-sky-400" data-width="80%"></div>
-                </div>
-              </div>
+            <!-- Dynamic Skills Render -->
+            <div class="space-y-5" id="skills-bars-container">
+              <!-- Rendered dynamically by main.js -->
             </div>
           </div>
 
-          <div class="space-y-8">
+          <!-- Right side details -->
+          <div class="space-y-8 flex flex-col justify-center">
             <div class="text-left">
-              <p class="mt-6 text-slate-400 leading-8">As a fresher Software Engineer, I am eager to build impactful applications and continuously learn modern technologies. I enjoy solving real-world problems and creating user-friendly digital solutions.</p>
+              <h3 class="text-2xl font-bold text-white mb-4">Eager to Innovate & Build</h3>
+              <p class="text-slate-350 leading-8 text-sm sm:text-base">
+                As a fresher Software Engineer, I am eager to build impactful applications and continuously learn modern technologies. I enjoy solving real-world problems and creating user-friendly digital solutions.
+              </p>
             </div>
-            <div class="grid gap-4 text-slate-400">
-              <div class="grid grid-cols-[auto_1fr] gap-6 items-start border-b border-slate-800 pb-4">
+            
+            <div class="grid gap-4 text-sm text-slate-400">
+              <div class="grid grid-cols-[140px_1fr] gap-4 border-b border-slate-900 pb-4">
                 <span class="font-semibold text-white">Profile:</span>
                 <span class="text-slate-300">Software Engineer</span>
               </div>
-              <div class="grid grid-cols-[auto_1fr] gap-6 items-start border-b border-slate-800 pb-4">
+              <div class="grid grid-cols-[140px_1fr] gap-4 border-b border-slate-900 pb-4">
                 <span class="font-semibold text-white">Education:</span>
                 <span class="text-slate-300">Bachelor's of Information Technology</span>
               </div>
-              <div class="grid grid-cols-[auto_1fr] gap-6 items-start border-b border-slate-800 pb-4">
-                <span class="font-semibold text-white">Language:</span>
-                <span class="text-slate-300">English , Hindi , Marathi</span>
+              <div class="grid grid-cols-[140px_1fr] gap-4 border-b border-slate-900 pb-4">
+                <span class="font-semibold text-white">Languages:</span>
+                <span class="text-slate-300">English, Hindi, Marathi</span>
               </div>
-              <div class="grid grid-cols-[auto_1fr] gap-6 items-start border-b border-slate-800 pb-4">
-                <span class="font-semibold text-white">Tools & Technologies:</span>
+              <div class="grid grid-cols-[140px_1fr] gap-4 border-b border-slate-900 pb-4">
+                <span class="font-semibold text-white">Workflow & Tools:</span>
                 <span class="text-slate-300">Git, GitHub, Postman, VS Code</span>
               </div>
-              <div class="grid grid-cols-[auto_1fr] gap-6 items-start border-b border-slate-800 pb-4">
+              <div class="grid grid-cols-[140px_1fr] gap-4 border-b border-slate-900 pb-4">
                 <span class="font-semibold text-white">Technical Skills:</span>
                 <span class="text-slate-300">JavaScript, React, Node.js, Express, MongoDB, MySQL</span>
               </div>
-              <div class="grid grid-cols-[auto_1fr] gap-6 items-start border-b border-slate-800 pb-4">
-                <span class="font-semibold text-white">Additional Knowledge:</span>
-                <span class="text-slate-300">REST APIs, Authentication (JWT),<br> Responsive Design</span>
-              </div>
-              <div class="grid grid-cols-[auto_1fr] gap-6 items-start">
-                <span class="font-semibold text-white">Interest:</span>
+              <div class="grid grid-cols-[140px_1fr] gap-4">
+                <span class="font-semibold text-white">Interests:</span>
                 <span class="text-slate-300">Traveling, Travel Photography, Problem Solving</span>
               </div>
             </div>
@@ -217,444 +196,309 @@
         </div>
       </section>
 
-      <section id="educations" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+      <!-- EDUCATION TIMELINE SECTION -->
+      <section id="educations" class="max-w-7xl mx-auto px-6 md:px-10 py-20 border-t border-slate-900/60">
         <div class="text-center max-w-3xl mx-auto">
-          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Educations</p>
+          <p class="text-xs uppercase tracking-[0.4em] text-sky-400 font-bold">Educations</p>
           <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">My Educational Journey</h2>
-          <p class="mt-4 text-slate-400">A modern timeline showcasing my academic and professional development milestones.</p>
+          <p class="mt-4 text-slate-400 text-sm">A modern timeline showcasing my academic and professional development milestones.</p>
         </div>
 
         <div class="mt-16">
-          <!-- Horizontal Timeline -->
           <div class="relative">
-            <!-- Timeline Line -->
-            <div class="hidden lg:block absolute top-8 left-0 right-0 h-px bg-gradient-to-r from-slate-700 via-sky-400 to-slate-700"></div>
+            <!-- Timeline Connect line -->
+            <div class="hidden lg:block absolute top-8 left-0 right-0 h-[2px] bg-gradient-to-r from-slate-800 via-sky-500/50 to-slate-800"></div>
             
-            <!-- Timeline Items -->
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4">
-              <!-- Item 1 -->
-              <div class="relative flex flex-col items-center">
-                <div class="flex h-16 w-16 items-center justify-center rounded-full bg-slate-900 border-4 border-sky-400 shadow-lg shadow-sky-400/20">
-                  <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                  </svg>
-                </div>
-                <div class="mt-6 rounded-[24px] border border-slate-700 bg-slate-950/70 p-6 shadow-xl shadow-slate-950/20 hover:shadow-sky-500/10 transition-all duration-300 hover:-translate-y-1 min-h-[20rem] flex flex-col">
-                  <div class="text-center mb-4">
-                    <span class="text-sm uppercase tracking-[0.35em] text-slate-500">2020 - 2022</span>
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="text-xl font-semibold text-white mb-2">Higher Secondary Education (HSC)</h3>
-                    <p class="text-sm text-sky-400 mb-3">Kirti College, Dadar</p>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-Completed higher secondary education with a focus on core academic subjects, strengthening analytical thinking, logical reasoning, and problem-solving skills. Built a strong foundation for further studies in information technology while improving adaptability, communication, and the ability to understand and apply new concepts effectively.    </p>
-                    <div class="flex flex-wrap gap-2">
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Fundamentals</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Problem Solving</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Academic Foundation</span>
-                    </div>
-                  </div>
-                </div>
-                              </div>
-                
-                <!-- Item 2 -->
-                <div class="relative flex flex-col items-center">
-                  <div class="flex h-16 w-16 items-center justify-center rounded-full bg-slate-900 border-4 border-sky-400 shadow-lg shadow-sky-400/20">
-                    <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422A12.083 12.083 0 0121 20.055M12 14L5.84 10.578A12.083 12.083 0 003 20.055"></path>
-                    </svg>
-                  </div>
-                  <div class="mt-6 rounded-[24px] border border-slate-700 bg-slate-950/70 p-6 shadow-xl shadow-slate-950/20 hover:shadow-sky-500/10 transition-all duration-300 hover:-translate-y-1 min-h-[20rem] flex flex-col">
-                    <div class="text-center mb-4">
-                      <span class="text-sm uppercase tracking-[0.35em] text-slate-500">2022 - 2025</span>
-                    </div>
-                    <div class="flex-1">
-                      <h3 class="text-xl font-semibold text-white mb-2">Bachelor of Information Technology (B.Sc IT)</h3>
-                      <p class="text-sm text-sky-400 mb-3">Kirti College, Mumbai University</p>
-                      <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                Pursued a comprehensive program focused on software development, data structures, algorithms, and modern web technologies. Developed strong problem-solving skills and gained practical experience in building web applications, along with a solid foundation in computer science principles.
-                      </p>
-                      <div class="flex flex-wrap gap-2">
-                        <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Software Engineering</span>
-                        <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Data Structures</span>
-                        <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Web Development</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                
-                <!-- Item 3 -->
-                <div class="relative flex flex-col items-center">
-                  <div class="flex h-16 w-16 items-center justify-center rounded-full bg-slate-900 border-4 border-sky-400 shadow-lg shadow-sky-400/20">
-                    <svg class="w-8 h-8 text-sky-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422A12.083 12.083 0 0121 20.055M12 14L5.84 10.578A12.083 12.083 0 003 20.055"></path>
-                    </svg>
-                  </div>
-                  <div class="mt-6 rounded-[24px] border border-slate-700 bg-slate-950/70 p-6 shadow-xl shadow-slate-950/20 hover:shadow-sky-500/10 transition-all duration-300 hover:-translate-y-1 min-h-[20rem] flex flex-col">
-                    <div class="text-center mb-4">
-<span class="text-sm uppercase tracking-[0.35em] text-slate-500">2026 - Present</span>
-
-                    </div>
-                    <div class="flex-1">
-                      <h3 class="text-xl font-semibold text-white mb-2">Master of Science in Information Technology (M.Sc IT)</h3>
-                      <p class="text-sm text-sky-400 mb-3">Kirti College, Mumbai University</p>
-<p class="text-slate-400 text-sm leading-relaxed mb-4">
-Currently preparing for a Master’s in Information Technology, focusing on software development, system design, and modern application architectures. Building skills to strengthen technical expertise and create scalable real-world solutions.
-</p>
-                    <div class="flex flex-wrap gap-2">
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Advanced Development</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">System Design</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Scalable Applications</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <!-- Dynamic Education Timeline -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-4" id="educations-timeline">
+              <!-- Rendered dynamically by main.js -->
             </div>
           </div>
         </div>
       </section>
 
-      <section id="projects" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+      <!-- PROJECTS SHOWCASE SECTION -->
+      <section id="projects" class="max-w-7xl mx-auto px-6 md:px-10 py-20 border-t border-slate-900/60">
         <div class="text-center max-w-3xl mx-auto">
-          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Projects</p>
-          <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Explore my portfolio showcase</h2>
-          <p class="mt-4 text-slate-400">A curated collection of recent design and development work across brands, apps and web experiences.</p>
+          <p class="text-xs uppercase tracking-[0.4em] text-sky-400 font-bold">Projects</p>
+          <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Explore My Showcase</h2>
+          <p class="mt-4 text-slate-400 text-sm">A curated collection of recent design and development work across brands, apps, and web experiences.</p>
         </div>
+        
         <div class="mt-12 relative">
           <div class="overflow-hidden">
+            <!-- Dynamic Projects Slider Wrapper -->
             <div id="projects-slider" class="flex gap-6 pb-4 no-scrollbar" style="transform: translateX(0);">
-              <a href="#" class="group overflow-hidden rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] sm:min-h-[32rem] cursor-pointer">
-                <div class="overflow-hidden rounded-none bg-slate-900">
-                  <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80" alt="Cozycasa project" class="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col justify-between">
-                  <div>
-                    <h3 class="text-2xl font-semibold text-white">Cozycasa</h3>
-                    <p class="mt-4 text-slate-400">Brand experience for a modern interior design studio, including responsive landing page design and polished visual storytelling.</p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">HTML</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">CSS</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">JavaScript</span>
-                    </div>
-                  </div>
-                  <span class="mt-8 inline-flex items-center gap-2 text-sky-400 hover:text-white">
-                    Read more
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </a>
-              <a href="#" class="group overflow-hidden rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] sm:min-h-[32rem] cursor-pointer">
-                <div class="overflow-hidden rounded-none bg-slate-900">
-                  <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="Mars project" class="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col justify-between">
-                  <div>
-                    <h3 class="text-2xl font-semibold text-white">Mars</h3>
-                    <p class="mt-4 text-slate-400">Mobile app experience for product discovery and launch campaigns, designed for intuitive navigation and conversion.</p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">React</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Node.js</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">MongoDB</span>
-                    </div>
-                  </div>
-                  <span class="mt-8 inline-flex items-center gap-2 text-sky-400 hover:text-white">
-                    Read more
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </a>
-              <a href="#" class="group overflow-hidden rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] sm:min-h-[32rem] cursor-pointer">
-                <div class="overflow-hidden rounded-none bg-slate-900">
-                  <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="Everyday Humans project" class="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col justify-between">
-                  <div>
-                    <h3 class="text-2xl font-semibold text-white">Everyday Humans</h3>
-                    <p class="mt-4 text-slate-400">A cheerful branding system for lifestyle and marketing campaigns, built to connect with audiences through vibrant storytelling.</p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">HTML</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">CSS</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">JavaScript</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">PHP</span>
-                    </div>
-                  </div>
-                  <span class="mt-8 inline-flex items-center gap-2 text-sky-400 hover:text-white">
-                    Read more
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </a>
-              <a href="#" class="group overflow-hidden rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] sm:min-h-[32rem] cursor-pointer">
-                <div class="overflow-hidden rounded-none bg-slate-900">
-                  <img src="https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80" alt="Nimbus project" class="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col justify-between">
-                  <div>
-                    <h3 class="text-2xl font-semibold text-white">Nimbus</h3>
-                    <p class="mt-4 text-slate-400">Data dashboard design for modern analytics workflows, focused on clarity, performance, and interactive insights.</p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">React</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">D3.js</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">Node.js</span>
-                    </div>
-                  </div>
-                  <span class="mt-8 inline-flex items-center gap-2 text-sky-400 hover:text-white">
-                    Read more
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </a>
-              <a href="#" class="group overflow-hidden rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] sm:min-h-[32rem] cursor-pointer">
-                <div class="overflow-hidden rounded-none bg-slate-900">
-                  <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80" alt="Flow project" class="h-64 w-full object-cover transition duration-500 group-hover:scale-105" />
-                </div>
-                <div class="p-6 sm:p-8 flex flex-col justify-between">
-                  <div>
-                    <h3 class="text-2xl font-semibold text-white">Flow</h3>
-                    <p class="mt-4 text-slate-400">A creative landing page concept for enterprise product launch, tailored for strong messaging and user engagement.</p>
-                    <div class="mt-4 flex flex-wrap gap-2">
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">HTML</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">CSS</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">JavaScript</span>
-                      <span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">GSAP</span>
-                    </div>
-                  </div>
-                  <span class="mt-8 inline-flex items-center gap-2 text-sky-400 hover:text-white">
-                    Read more
-                    <span aria-hidden="true">→</span>
-                  </span>
-                </div>
-              </a>
+              <!-- Rendered dynamically by main.js -->
             </div>
           </div>
-          <div class="mt-6 flex justify-center gap-3">
-            <button type="button" data-slide="0" class="h-3 w-3 rounded-full bg-sky-400" aria-label="Slide 1"></button>
-            <button type="button" data-slide="1" class="h-3 w-3 rounded-full bg-slate-700" aria-label="Slide 2"></button>
-            <button type="button" data-slide="2" class="h-3 w-3 rounded-full bg-slate-700" aria-label="Slide 3"></button>
+          
+          <!-- Projects dots navigation -->
+          <div class="mt-6 flex justify-center gap-3" id="projects-dots">
+            <!-- Rendered dynamically by main.js -->
           </div>
         </div>
       </section>
 
-      <section id="certifications" class="max-w-7xl mx-auto px-6 md:px-10 py-20">
+      <!-- CERTIFICATIONS SECTION -->
+      <section id="certifications" class="max-w-7xl mx-auto px-6 md:px-10 py-20 border-t border-slate-900/60">
         <div class="text-center max-w-3xl mx-auto">
-          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Certifications</p>
-          <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Trusted certifications that prove my skills</h2>
-          <p class="mt-4 text-slate-400">Swipe through my verified credentials with issuer, date, and a brief highlight of what I learned.</p>
+          <p class="text-xs uppercase tracking-[0.4em] text-sky-400 font-bold">Certifications</p>
+          <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Trusted Verified Credentials</h2>
+          <p class="mt-4 text-slate-400 text-sm">Swipe through my verified credentials with issuer, date, and a brief highlight of what I learned.</p>
         </div>
 
         <div class="mt-12 relative">
           <div class="overflow-hidden">
+            <!-- Dynamic Certifications Slider -->
             <div id="certifications-slider" class="flex gap-6 pb-4 no-scrollbar" style="transform: translateX(0);">
-              <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[26rem] sm:min-h-[30rem] rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30">
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80" alt="Microsoft certification card" class="h-44 w-full object-cover rounded-none" />
-                <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
-                  <div>
-                    <div class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-xs uppercase tracking-[0.35em] text-slate-300">Microsoft</div>
-                    <h3 class="mt-6 text-2xl font-semibold text-white">MTA Database Fundamentals</h3>
-                    <p class="mt-4 text-slate-400">Core database concepts, relational design, and SQL essentials for modern applications.</p>
-                  </div>
-                  <div class="mt-8 flex items-center justify-between border-t border-slate-800 pt-6 text-sm text-slate-400">
-                    <span>Issued Jun 2024</span>
-                    <a href="#" class="text-sky-400 transition hover:text-white">View certificate →</a>
-                  </div>
-                </div>
-              </article>
-              <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[26rem] sm:min-h-[30rem] rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30">
-                <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80" alt="Microsoft certification card" class="h-44 w-full object-cover rounded-none" />
-                <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
-                  <div>
-                    <div class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-xs uppercase tracking-[0.35em] text-slate-300">Microsoft</div>
-                    <h3 class="mt-6 text-2xl font-semibold text-white">MTA Database Fundamentals</h3>
-                    <p class="mt-4 text-slate-400">Core database concepts, relational design, and SQL essentials for modern applications.</p>
-                  </div>
-                  <div class="mt-8 flex items-center justify-between border-t border-slate-800 pt-6 text-sm text-slate-400">
-                    <span>Issued Jun 2024</span>
-                    <a href="#" class="text-sky-400 transition hover:text-white">View certificate →</a>
-                  </div>
-                </div>
-              </article>
-              <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[26rem] sm:min-h-[30rem] rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30">
-                <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="IBM certificate preview" class="h-44 w-full object-cover rounded-none" />
-                <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
-                  <div>
-                    <div class="inline-flex items-center rounded-full bg-indigo-900/80 px-3 py-1 text-xs uppercase tracking-[0.35em] text-slate-300">IBM</div>
-                    <h3 class="mt-6 text-2xl font-semibold text-white">IBM Data Science Professional</h3>
-                    <p class="mt-4 text-slate-400">Full-stack data science toolkit training with Python, visualization, and machine learning fundamentals.</p>
-                  </div>
-                  <div class="mt-8 flex items-center justify-between border-t border-slate-800 pt-6 text-sm text-slate-400">
-                    <span>Issued Apr 2025</span>
-                    <a href="#" class="text-sky-400 transition hover:text-white">View certificate →</a>
-                  </div>
-                </div>
-              </article>
-              <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[26rem] sm:min-h-[30rem] rounded-none border border-slate-700 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-transform duration-300 hover:-translate-y-1 hover:shadow-sky-500/30">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80" alt="AWS certificate thumbnail" class="h-44 w-full object-cover rounded-none" />
-                <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
-                  <div>
-                    <div class="inline-flex items-center rounded-full bg-slate-800/80 px-3 py-1 text-xs uppercase tracking-[0.35em] text-slate-300">AWS</div>
-                    <h3 class="mt-6 text-2xl font-semibold text-white">AWS Cloud Practitioner</h3>
-                    <p class="mt-4 text-slate-400">Foundational cloud concepts, AWS services, architecture, and best practices for secure deployments.</p>
-                  </div>
-                  <div class="mt-8 flex items-center justify-between border-t border-slate-800 pt-6 text-sm text-slate-400">
-                    <span>Issued Nov 2024</span>
-                    <a href="#" class="text-sky-400 transition hover:text-white">View certificate →</a>
-                  </div>
-                </div>
-              </article>
+              <!-- Rendered dynamically by main.js -->
             </div>
           </div>
-          <div class="mt-6 flex justify-center gap-3">
-            <button type="button" data-cert-slide="0" class="h-3 w-3 rounded-full bg-sky-400" aria-label="Certification 1"></button>
-            <button type="button" data-cert-slide="1" class="h-3 w-3 rounded-full bg-slate-700" aria-label="Certification 2"></button>
-            <button type="button" data-cert-slide="2" class="h-3 w-3 rounded-full bg-slate-700" aria-label="Certification 3"></button>
-            <button type="button" data-cert-slide="3" class="h-3 w-3 rounded-full bg-slate-700" aria-label="Certification 4"></button>
+          
+          <!-- Certifications dots -->
+          <div class="mt-6 flex justify-center gap-3" id="certifications-dots">
+            <!-- Rendered dynamically by main.js -->
           </div>
         </div>
       </section>
 
+      <!-- GITHUB HERO CALL TO ACTION -->
       <section id="github" class="relative isolate overflow-hidden py-24 sm:py-28 lg:py-36">
-        <img src="images/bg_1.jpg" alt="Mountain landscape background" class="absolute inset-0 -z-20 h-full w-full object-cover" />
+        <img src="images/bg_1.jpg" alt="Mountain landscape background" class="absolute inset-0 -z-20 h-full w-full object-cover brightness-50" />
         <div class="max-w-7xl mx-auto px-6 md:px-10">
           <div class="mx-auto grid max-w-4xl gap-5 sm:grid-cols-3">
-            <div class="rounded-[10px] bg-[#02071A]/95 px-6 py-10 text-center shadow-none">
+            <div class="rounded-3xl bg-[#02071A]/90 backdrop-blur border border-slate-800/40 px-6 py-10 text-center shadow-2xl">
               <p class="count-up text-3xl font-bold bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent" data-count="10" data-suffix="+">0+</p>
-              <p class="mt-5 text-base text-slate-100">Achievements</p>
+              <p class="mt-4 text-sm text-slate-300">Achievements</p>
             </div>  
-            <div class="rounded-[10px] bg-[#02071A]/95 px-6 py-10 text-center shadow-none">
+            <div class="rounded-3xl bg-[#02071A]/90 backdrop-blur border border-slate-800/40 px-6 py-10 text-center shadow-2xl">
               <p class="count-up text-3xl font-bold bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent" data-count="15" data-suffix="+">0+</p>
-              <p class="mt-5 text-base text-slate-100">Projects</p>
+              <p class="mt-4 text-sm text-slate-300">Projects</p>
             </div>
-            <div class="rounded-[10px] bg-[#02071A]/95 px-6 py-10 text-center shadow-none">
+            <div class="rounded-3xl bg-[#02071A]/90 backdrop-blur border border-slate-800/40 px-6 py-10 text-center shadow-2xl">
               <p class="count-up text-3xl font-bold bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent" data-count="20" data-suffix="+">0+</p>
-              <p class="mt-5 text-base text-slate-100">Certifications</p>
+              <p class="mt-4 text-sm text-slate-300">Certifications</p>
             </div>
           </div>
           <div class="mx-auto mt-20 max-w-4xl text-center">
-            <h2 class="text-4xl sm:text-5xl font-bold text-white leading-tight">More projects on <span class="bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent">Github</span></h2>
-            <p class="mt-5 text-lg sm:text-xl text-slate-100">I love to solve business problems &amp; uncover hidden data stories</p>
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-10 py-4 text-lg font-semibold text-white transition hover:-translate-y-0.5">
-              Github
+            <h2 class="text-3xl sm:text-5xl font-bold text-white leading-tight">Explore More on <span class="bg-gradient-to-r from-sky-500 to-indigo-500 bg-clip-text text-transparent">GitHub</span></h2>
+            <p class="mt-5 text-sm sm:text-lg text-slate-300">I love to solve business problems &amp; uncover hidden data stories</p>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="mt-8 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-10 py-4 text-base font-semibold text-white transition hover:-translate-y-0.5 shadow-lg shadow-sky-500/25">
+              Go to GitHub
             </a>
           </div>
         </div>
       </section>
 
-      <section id="contact" class="max-w-7xl mx-auto px-6 md:px-10 py-16">
+      <!-- CONTACT SECTION -->
+      <section id="contact" class="max-w-7xl mx-auto px-6 md:px-10 py-16 border-t border-slate-900/60">
         <div class="text-center max-w-3xl mx-auto">
-          <p class="text-sm uppercase tracking-[0.35em] text-sky-400">Contact</p>
+          <p class="text-xs uppercase tracking-[0.4em] text-sky-400 font-bold">Contact</p>
           <h2 class="mt-4 text-3xl md:text-4xl font-bold text-white">Let's Build Something Great</h2>
         </div>
+        
         <div class="mt-10 grid gap-8 lg:grid-cols-2">
-          <div class="rounded-[32px] border border-slate-800 bg-[#03081A] p-8 text-slate-100 md:p-10 lg:p-12">
-            <div class="max-w-xl mx-auto text-center">
-              <h2 class="text-3xl font-bold tracking-tight text-white md:text-4xl">Let’s discuss your Project</h2>
-              <p class="mx-auto mt-4 max-w-2xl text-base leading-7 text-slate-300 md:text-lg">I'm available for freelance work. Drop me a line if you have a project you think I'd be a good fit for.</p>
+          <!-- Contact details info -->
+          <div class="rounded-[32px] border border-slate-850 bg-[#03081A]/80 p-8 text-slate-100 md:p-10 lg:p-12 shadow-2xl">
+            <div class="max-w-xl mx-auto text-center mb-10">
+              <h3 class="text-2xl font-bold text-white">Let’s Discuss Your Project</h3>
+              <p class="mx-auto mt-4 text-sm leading-relaxed text-slate-400">I'm available for freelance work. Drop me a line if you have a project you think I'd be a good fit for.</p>
             </div>
 
-            <div class="mt-10 space-y-6">
-              <div class="-mx-3 flex items-start gap-4 rounded-xl border border-transparent px-3 py-2 transition-all duration-300 hover:-translate-y-1 hover:border-sky-400/40 hover:bg-sky-500/20 hover:shadow-2xl hover:shadow-sky-500/40">
-                <div class="flex h-14 w-14 items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-indigo-500 text-white">
-                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <div class="space-y-6">
+              <div class="-mx-3 flex items-start gap-4 rounded-2xl border border-transparent px-4 py-3 transition-all duration-300 hover:border-slate-850 hover:bg-slate-900/50 hover:shadow-xl">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow shadow-sky-500/25">
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M12 2C8.14 2 5 5.14 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.86-3.14-7-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6a2.5 2.5 0 0 1 0 5.5Z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-sm text-slate-400">Address:</p>
-                  <p class="mt-1 text-base font-semibold text-white">Mumbai, India</p>
+                  <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Address:</p>
+                  <p class="mt-1 text-sm font-bold text-white">Mumbai, India</p>
                 </div>
               </div>
 
-              <div class="-mx-3 flex items-start gap-4 rounded-xl border border-transparent px-3 py-2 transition-all duration-300 hover:-translate-y-1 hover:border-sky-400/40 hover:bg-sky-500/20 hover:shadow-2xl hover:shadow-sky-500/40">
-                <div class="flex h-14 w-14 items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-indigo-500 text-white">
-                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div class="-mx-3 flex items-start gap-4 rounded-2xl border border-transparent px-4 py-3 transition-all duration-300 hover:border-slate-850 hover:bg-slate-900/50 hover:shadow-xl">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow shadow-indigo-500/25">
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2Zm0 4.2-8 5.3-8-5.3V6l8 5.3L20 6v2.2Z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-sm text-slate-400">My Email:</p>
-                  <p class="mt-1 text-base font-semibold text-white">tushaljadhav123@gmail.com</p>
+                  <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">My Email:</p>
+                  <p class="mt-1 text-sm font-bold text-white">tushaljadhav123@gmail.com</p>
                 </div>
               </div>
 
-              <div class="-mx-3 flex items-start gap-4 rounded-xl border border-transparent px-3 py-2 transition-all duration-300 hover:-translate-y-1 hover:border-sky-400/40 hover:bg-sky-500/20 hover:shadow-2xl hover:shadow-sky-500/40">
-                <div class="flex h-14 w-14 items-center justify-center rounded-md bg-gradient-to-r from-sky-500 to-indigo-500 text-white">
-                  <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <div class="-mx-3 flex items-start gap-4 rounded-2xl border border-transparent px-4 py-3 transition-all duration-300 hover:border-slate-850 hover:bg-slate-900/50 hover:shadow-xl">
+                <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-indigo-500 text-white shadow shadow-sky-500/25">
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                     <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.32.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.95 21 3 13.05 3 3a1 1 0 0 1 1-1h3.49a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.57a1 1 0 0 1-.24 1.02l-2.2 2.2Z" />
                   </svg>
                 </div>
                 <div>
-                  <p class="text-sm text-slate-400">Call Me Now:</p>
-                  <p class="mt-1 text-base font-semibold text-white">+91-8591811441</p>
+                  <p class="text-xs text-slate-500 uppercase tracking-wider font-semibold">Call Me Now:</p>
+                  <p class="mt-1 text-sm font-bold text-white">+91-8591811441</p>
                 </div>
               </div>
             </div>
 
-            <div class="mt-10 flex items-center gap-5 text-indigo-400">
-              <a href="https://wa.me/918591811441" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white hover:-translate-y-0.5">
+            <!-- Social Links bar -->
+            <div class="mt-10 flex items-center justify-center gap-5 text-indigo-400">
+              <a href="https://wa.me/918591811441" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 hover:border-sky-400 bg-slate-950 transition-all hover:-translate-y-0.5 text-slate-400 hover:text-white">
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M20.52 3.48A11.82 11.82 0 0 0 12.01 0C5.46 0 .15 5.31.15 11.86c0 2.1.55 4.14 1.6 5.94L0 24l6.36-1.72a11.84 11.84 0 0 0 5.65 1.44h.01c6.55 0 11.86-5.31 11.86-11.86 0-3.17-1.23-6.15-3.36-8.38Zm-8.51 18.2h-.01a9.8 9.8 0 0 1-5-1.37l-.36-.21-3.77 1.02 1.01-3.68-.23-.38a9.76 9.76 0 1 1 8.36 4.62Zm5.6-7.2c-.31-.16-1.84-.91-2.13-1.01-.29-.1-.5-.16-.71.16-.21.31-.82 1.01-1 1.22-.18.21-.37.24-.68.08-.31-.16-1.31-.48-2.49-1.52-.92-.82-1.54-1.84-1.72-2.15-.18-.31-.02-.48.14-.64.14-.14.31-.37.47-.55.16-.18.21-.31.31-.51.1-.21.05-.39-.02-.55-.08-.16-.71-1.71-.97-2.35-.26-.63-.52-.54-.71-.55h-.61c-.21 0-.55.08-.84.39-.29.31-1.1 1.08-1.1 2.63s1.13 3.03 1.29 3.24c.16.21 2.22 3.38 5.38 4.74.75.32 1.34.52 1.8.66.76.24 1.45.21 1.99.13.61-.09 1.84-.75 2.1-1.48.26-.73.26-1.35.18-1.48-.08-.14-.29-.21-.6-.37Z" />
                 </svg>
               </a>
-              <a href="https://www.instagram.com/tushal_jadhav_123/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white hover:-translate-y-0.5">
+              <a href="https://www.instagram.com/tushal_jadhav_123/?hl=en" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 hover:border-sky-400 bg-slate-950 transition-all hover:-translate-y-0.5 text-slate-400 hover:text-white">
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Zm0 2a3 3 0 0 0-3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3V7a3 3 0 0 0-3-3H7Zm5 2.75A5.25 5.25 0 1 1 6.75 12 5.26 5.26 0 0 1 12 6.75ZM12 8.75A3.25 3.25 0 1 0 15.25 12 3.25 3.25 0 0 0 12 8.75ZM17.5 5.5a1.25 1.25 0 1 1-1.25 1.25A1.25 1.25 0 0 1 17.5 5.5Z" />
                 </svg>
               </a>
-              <a href="#" aria-label="LinkedIn" class="inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white hover:-translate-y-0.5">
+              <a href="#" aria-label="LinkedIn" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 hover:border-sky-400 bg-slate-950 transition-all hover:-translate-y-0.5 text-slate-400 hover:text-white">
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M6.94 6.5A1.94 1.94 0 1 1 5 4.56 1.94 1.94 0 0 1 6.94 6.5ZM5.25 8.75h3.4V21h-3.4ZM10.25 8.75h3.26v1.68h.05c.45-.85 1.55-1.74 3.19-1.74 3.42 0 4.05 2.25 4.05 5.18V21h-3.4v-5.47c0-1.31-.02-3-1.83-3-1.84 0-2.12 1.43-2.12 2.9V21h-3.4Z" />
                 </svg>
               </a>
-              <a href="#" aria-label="Telegram" class="inline-flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:bg-gradient-to-r hover:from-sky-500 hover:to-indigo-500 hover:text-white hover:-translate-y-0.5">
+              <a href="#" aria-label="Telegram" class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-800 hover:border-sky-400 bg-slate-950 transition-all hover:-translate-y-0.5 text-slate-400 hover:text-white">
                 <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M9.22 14.47 9.03 18c.33 0 .47-.14.65-.32l1.55-1.49 3.22 2.35c.59.33 1.01.16 1.16-.54L19.73 4.9c.2-.84-.3-1.17-.88-.96L2.5 10.4c-.8.31-.79.76-.14.96l4.34 1.35L16.76 6.5c.48-.31.92-.14.56.18Z" />
                 </svg>
               </a>
             </div>
           </div>
-          <form id="contact-form" class="rounded-[32px] border border-slate-700/80 bg-slate-950/90 p-6 shadow-2xl shadow-slate-950/40 backdrop-blur-sm md:p-7">
-            <div class="mb-5 border-b border-slate-800 pb-3">
-              <p class="text-sm uppercase tracking-[0.3em] text-sky-400">Get In Touch</p>
+
+          <!-- Contact Inquiry form -->
+          <form id="contact-form" class="rounded-[32px] border border-slate-800 bg-slate-950/70 p-8 shadow-2xl backdrop-blur-sm">
+            <div class="mb-6 border-b border-slate-900 pb-4">
+              <p class="text-xs uppercase tracking-[0.3em] text-sky-400 font-bold">Get In Touch</p>
               <h3 class="mt-3 text-2xl font-bold text-white">Send me a message</h3>
-              <p class="mt-3 text-slate-400">Share a few details and I will get back to you soon.</p>
+              <p class="mt-2 text-slate-400 text-sm">Share a few details and I will get back to you soon.</p>
             </div>
 
             <div class="space-y-4">
               <div>
-                <label class="mb-2 block text-sm font-medium text-slate-300">Full Name</label>
-                <input id="contact-name" name="name" type="text" class="w-full rounded-2xl border border-slate-700 bg-slate-900/95 px-5 py-3 text-white placeholder:text-slate-500 outline-none transition duration-300 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/30" placeholder="Your name" required />
+                <label class="mb-2 block text-xs font-semibold text-slate-350">Full Name</label>
+                <input id="contact-name" name="name" type="text" class="w-full rounded-2xl border border-slate-800 bg-slate-900/60 px-5 py-3.5 text-sm text-white placeholder:text-slate-650 outline-none transition duration-300 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/10" placeholder="Your name" required />
               </div>
 
               <div>
-                <label class="mb-2 block text-sm font-medium text-slate-300">Email Address</label>
-                <input id="contact-email" name="email" type="email" class="w-full rounded-2xl border border-slate-700 bg-slate-900/95 px-5 py-3 text-white placeholder:text-slate-500 outline-none transition duration-300 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/30" placeholder="you@example.com" required />
+                <label class="mb-2 block text-xs font-semibold text-slate-350">Email Address</label>
+                <input id="contact-email" name="email" type="email" class="w-full rounded-2xl border border-slate-800 bg-slate-900/60 px-5 py-3.5 text-sm text-white placeholder:text-slate-650 outline-none transition duration-300 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/10" placeholder="you@example.com" required />
               </div>
 
               <div>
-                <label class="mb-2 block text-sm font-medium text-slate-300">Project Details</label>
-                <textarea id="contact-message" name="message" rows="4" class="w-full rounded-2xl border border-slate-700 bg-slate-900/95 px-5 py-3 text-white placeholder:text-slate-500 outline-none transition duration-300 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/30" placeholder="Tell me about your project" required></textarea>
+                <label class="mb-2 block text-xs font-semibold text-slate-350">Project Details (Min 10 characters)</label>
+                <textarea id="contact-message" name="message" rows="4" class="w-full rounded-2xl border border-slate-800 bg-slate-900/60 px-5 py-3.5 text-sm text-white placeholder:text-slate-650 outline-none transition duration-300 focus:border-sky-400 focus:ring-2 focus:ring-sky-500/10" placeholder="Tell me about your project..." required></textarea>
               </div>
             </div>
 
-            <button type="submit" class="mt-5 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-8 py-3 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30">
+            <button type="submit" class="mt-6 inline-flex w-full items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-8 py-4 text-base font-semibold text-white shadow-lg shadow-sky-500/25 transition duration-300 hover:-translate-y-0.5 hover:shadow-xl cursor-pointer">
               Submit Inquiry
             </button>
-            <p id="contact-status" class="mt-3 text-sm text-slate-300"></p>
+            <p id="contact-status" class="mt-4 text-sm text-center h-5 font-semibold"></p>
           </form>
         </div>
       </section>
+
     </main>
 
-    <footer class="border-t border-slate-800">
-      <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 px-6 pt-6 text-sm text-slate-300">
-        <span class="rounded-full border border-slate-700 px-4 py-1">Resume Downloads: <strong id="resume-count">0</strong></span>
-        <span class="rounded-full border border-slate-700 px-4 py-1">Total Visitors: <strong id="visitor-count">0</strong></span>
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-900/80 bg-slate-950/40 py-8">
+      <div class="mx-auto flex max-w-7xl flex-wrap items-center justify-center gap-4 px-6 text-xs text-slate-400">
+        <span class="rounded-full border border-slate-850 bg-slate-950/80 px-4 py-1.5 font-medium shadow-sm">CV Downloads: <strong id="resume-count" class="text-white">0</strong></span>
+        <span class="rounded-full border border-slate-850 bg-slate-950/80 px-4 py-1.5 font-medium shadow-sm">Total Visitors: <strong id="visitor-count" class="text-white">0</strong></span>
       </div>
-      <div class="text-center text-sm text-slate-500 py-4">
-        © 2026 All rights reserved. Made with Express, HTML, Tailwind CSS.
+      <div class="text-center text-xs text-slate-500 mt-6">
+        © 2026 Tushal Jadhav. All rights reserved. Made with Express, Mongoose, HTML, Tailwind CSS.
       </div>
     </footer>
+
   </div>
+
+  <!-- Dynamic Project Detail Modal (Glassmorphic) -->
+  <div id="project-detail-modal" class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-md hidden">
+    <div id="modal-overlay" onclick="closeProjectModal()" class="absolute inset-0 cursor-pointer"></div>
+    <div class="glass-panel w-full max-w-4xl rounded-3xl overflow-hidden shadow-2xl relative z-10 flex flex-col md:flex-row max-h-[90vh] md:max-h-[80vh]">
+      
+      <!-- Project Image Side -->
+      <div class="w-full md:w-1/2 bg-slate-900 overflow-hidden relative min-h-[200px] md:min-h-full">
+        <img id="modal-img" src="" alt="Project image preview" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-950/90 via-slate-950/20 to-transparent"></div>
+      </div>
+      
+      <!-- Project Details Content Side -->
+      <div class="w-full md:w-1/2 p-6 sm:p-8 md:p-10 flex flex-col justify-between overflow-y-auto custom-scrollbar modal-content-scroll bg-[#040B1F]/95">
+        <div class="space-y-6">
+          <div class="flex justify-between items-start border-b border-slate-850 pb-4">
+            <div>
+              <span id="modal-category" class="text-[10px] font-mono tracking-widest text-slate-500 uppercase">Category</span>
+              <h2 id="modal-title" class="text-2xl font-bold text-white mt-1 leading-tight">Project Title</h2>
+            </div>
+            <button onclick="closeProjectModal()" class="text-slate-400 hover:text-white text-3xl font-light focus:outline-none cursor-pointer leading-none" aria-label="Close modal">&times;</button>
+          </div>
+          
+          <div class="space-y-2">
+            <h4 class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Project Overview</h4>
+            <p id="modal-desc" class="text-slate-300 text-sm leading-relaxed whitespace-pre-wrap">Detailed explanation of project features and milestones.</p>
+          </div>
+
+          <div class="space-y-3">
+            <h4 class="text-[10px] font-semibold text-slate-500 uppercase tracking-wider">Technologies Used</h4>
+            <div id="modal-tags" class="flex flex-wrap gap-2">
+              <!-- Rendered dynamically -->
+            </div>
+          </div>
+        </div>
+
+        <div class="pt-8 border-t border-slate-850 flex gap-4 mt-8 flex-wrap">
+          <a id="modal-live" href="#" target="_blank" class="flex-1 inline-flex items-center justify-center rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 px-6 py-3.5 text-sm font-semibold text-white shadow-lg shadow-sky-500/25 transition hover:-translate-y-0.5 text-center">
+            Launch App
+          </a>
+          <a id="modal-github" href="#" target="_blank" class="flex-1 inline-flex items-center justify-center rounded-full border border-slate-700 bg-slate-950 px-6 py-3.5 text-sm text-slate-200 transition hover:border-slate-500 text-center">
+            Source Code
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Developer Console Terminal Widget (Toggle button) -->
+  <button id="terminal-trigger" class="fixed bottom-6 right-6 z-40 flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-tr from-indigo-500 to-sky-500 text-white shadow-xl shadow-sky-500/20 cursor-pointer hover:scale-110 hover:shadow-indigo-500/30 transition duration-300" aria-label="Open Developer CLI">
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M8 9l3 3-3 3m5 0h3" />
+    </svg>
+  </button>
+
+  <!-- Terminal Window (Hidden by default) -->
+  <div id="terminal-widget" class="fixed bottom-24 right-6 w-full max-w-lg h-96 glass-panel rounded-2xl shadow-2xl z-40 hidden flex flex-col overflow-hidden border border-sky-500/30">
+    <!-- Header -->
+    <div class="bg-slate-950/80 px-4 py-3 flex justify-between items-center border-b border-slate-800">
+      <div class="flex items-center gap-2">
+        <span class="h-3 w-3 rounded-full bg-rose-500"></span>
+        <span class="h-3 w-3 rounded-full bg-amber-500"></span>
+        <span class="h-3 w-3 rounded-full bg-emerald-500"></span>
+        <span class="text-[10px] font-mono text-slate-500 ml-2">tushal@portfolio-cli: ~</span>
+      </div>
+      <button id="terminal-close" class="text-slate-400 hover:text-white text-sm cursor-pointer font-bold">&times;</button>
+    </div>
+    <!-- Terminal Body -->
+    <div id="terminal-body" class="flex-1 p-4 bg-black/90 font-mono text-emerald-400 text-xs overflow-y-auto custom-scrollbar flex flex-col justify-between">
+      <div id="terminal-output" class="space-y-2 select-all">
+        <div>Welcome to Tushal Jadhav's Interactive CLI Portfolio v1.0.0.</div>
+        <div>Type <span class="text-yellow-400 font-bold">help</span> to view all available commands.</div>
+        <br/>
+      </div>
+      <div class="flex items-center gap-2 mt-2 pt-2 border-t border-slate-900">
+        <span class="text-sky-400 font-bold">tushal$</span>
+        <input type="text" id="terminal-input" class="flex-1 bg-transparent border-none outline-none text-emerald-400 font-mono text-xs focus:ring-0" autofocus autocomplete="off" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Includes -->
   <script src="js/config.js"></script>
   <script src="js/main.js"></script>
 </body>

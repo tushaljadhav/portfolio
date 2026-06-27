@@ -1,9 +1,11 @@
 const express = require('express');
-const { getAnalytics, getVisitors } = require('../controllers/analyticsController');
+const { getAnalytics, getVisitors, getPublicStats } = require('../controllers/analyticsController');
+const { requireAdmin } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.get('/analytics', getAnalytics);
-router.get('/visitors', getVisitors);
+router.get('/public-stats', getPublicStats);
+router.get('/analytics', requireAdmin, getAnalytics);
+router.get('/visitors', requireAdmin, getVisitors);
 
 module.exports = router;

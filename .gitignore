@@ -34,3 +34,7 @@ Thumbs.db
 # Deploy platform folders
 .vercel/
 .render/
+
+# Temporary files and backups
+backup_temp/
+github-branches
