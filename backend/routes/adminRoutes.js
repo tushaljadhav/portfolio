@@ -5,6 +5,6 @@ const router = express.Router();
 
 router.post('/api/admin-login', adminLogin);
 router.post('/api/admin-logout', adminLogout);
-router.get('/admin-secret-123', getAdminDashboardPage);
+router.get('/admin', getAdminDashboardPage);
 
 module.exports = router;
