@@ -3,5 +3,5 @@ if (window.location.hostname === 'localhost' || window.location.hostname === '12
   window.PORTFOLIO_API_BASE_URL = 'http://localhost:3000';
 } else {
   // Replace this with your production backend Render URL when deploying.
-  window.PORTFOLIO_API_BASE_URL = 'https://portfolio-backend-80g5.onrender.com';
+  window.PORTFOLIO_API_BASE_URL = 'https://portfolio-backend-86g8.onrender.com';
 }
