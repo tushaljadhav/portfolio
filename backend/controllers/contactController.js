@@ -39,7 +39,7 @@ async function submitContactForm(req, res) {
       });
     }
 
-    const adminEmail = process.env.ADMIN_EMAIL || process.env.MAIL_USER;
+    const adminEmail = process.env.ADMIN_EMAIL || process.env.MAIL_USER || 'tushaljadhav123@gmail.com';
 
     const adminEmailPromise = transporter.sendMail({
       from: process.env.MAIL_USER,
@@ -67,11 +67,10 @@ async function submitContactForm(req, res) {
       `,
     });
 
-    try {
-      await Promise.all([adminEmailPromise, autoReplyPromise]);
-    } catch (emailError) {
-      console.error('Email send error (message still saved):', emailError.message);
-    }
+    // Send emails in the background so the user doesn't face any loading delay
+    Promise.all([adminEmailPromise, autoReplyPromise])
+      .then(() => console.log('Contact and auto-reply emails sent successfully.'))
+      .catch((emailError) => console.error('Background email send error:', emailError.message));
 
     return res.status(200).json({
       success: true,
