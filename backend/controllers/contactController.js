@@ -42,7 +42,7 @@ async function submitContactForm(req, res) {
     const adminEmail = process.env.ADMIN_EMAIL || process.env.MAIL_USER || 'tushaljadhav123@gmail.com';
 
     const adminEmailPromise = transporter.sendMail({
-      from: process.env.MAIL_USER,
+      from: process.env.SENDER_EMAIL || 'tushalcollege@gmail.com',
       to: adminEmail,
       subject: `New Portfolio Contact from ${nameTrim}`,
       html: `
@@ -54,7 +54,7 @@ async function submitContactForm(req, res) {
     });
 
     const autoReplyPromise = transporter.sendMail({
-      from: process.env.MAIL_USER,
+      from: process.env.SENDER_EMAIL || 'tushalcollege@gmail.com',
       to: emailTrim,
       subject: 'Thanks for contacting me!',
       html: `
