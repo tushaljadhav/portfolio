@@ -9,8 +9,11 @@ function createTransporter() {
     return null;
   }
 
+  // Configured to use Brevo SMTP relay by default
   return nodemailer.createTransport({
-    service: 'gmail',
+    host: process.env.MAIL_HOST || 'smtp-relay.brevo.com',
+    port: parseInt(process.env.MAIL_PORT) || 587,
+    secure: false, // true for 465, false for 587
     auth: {
       user: mailUser,
       pass: mailPass,
