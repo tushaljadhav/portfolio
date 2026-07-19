@@ -919,28 +919,35 @@ async function getAdminDashboardPage(req, res) {
               return;
             }
 
-            grid.innerHTML = datasets.certifications.map(c => \`
+            grid.innerHTML = datasets.certifications.map(c => {
+              let url = (c.credentialUrl || '#').trim();
+              if (url !== '#' && url && !url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+              }
+              const hasValidUrl = url && url !== '#';
+              return `
               <div class="glass-panel rounded-2xl overflow-hidden shadow-lg flex flex-col group border border-slate-800 hover:border-slate-700/60 transition-all duration-300">
-                <img src="\${c.image}" alt="\${c.title}" class="h-36 w-full object-cover bg-slate-900" />
+                <img src="${c.image}" alt="${c.title}" class="h-36 w-full object-cover bg-slate-900" />
                 <div class="p-5 flex-1 flex flex-col justify-between">
                   <div>
                     <div class="flex justify-between items-start gap-2">
-                      <h4 class="text-sm font-bold text-white group-hover:text-indigo-400 transition">\${c.title}</h4>
-                      <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">\${c.issuer}</span>
+                      <h4 class="text-sm font-bold text-white group-hover:text-indigo-400 transition">${c.title}</h4>
+                      <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-semibold bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">${c.issuer}</span>
                     </div>
-                    <p class="text-[10px] text-slate-500 font-mono mt-1">Issued: \${c.issueDate || 'N/A'}</p>
-                    <p class="text-xs text-slate-400 mt-2 line-clamp-3">\${c.description}</p>
+                    <p class="text-[10px] text-slate-500 font-mono mt-1">Issued: ${c.issueDate || 'N/A'}</p>
+                    <p class="text-xs text-slate-400 mt-2 line-clamp-3">${c.description}</p>
                   </div>
                   <div class="mt-5 pt-3 border-t border-slate-800 flex justify-between items-center text-xs">
-                    <a href="\${c.credentialUrl}" target="_blank" class="text-sky-400 hover:underline text-[10px] font-semibold inline-flex items-center gap-1">Verify Link &rarr;</a>
+                    ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:underline text-[10px] font-semibold inline-flex items-center gap-1">Verify Link &rarr;</a>` : `<span class="text-slate-600 text-[10px] italic">No Link</span>`}
                     <div class="flex gap-2">
-                      <button onclick="editCertification('\${c._id}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-md text-[10px] font-semibold cursor-pointer">Edit</button>
-                      <button onclick="deleteItem('certifications', '\${c._id}')" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-md text-[10px] font-semibold cursor-pointer">Delete</button>
+                      <button onclick="editCertification('${c._id}')" class="px-2.5 py-1 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-md text-[10px] font-semibold cursor-pointer">Edit</button>
+                      <button onclick="deleteItem('certifications', '${c._id}')" class="px-2.5 py-1 bg-rose-500/10 hover:bg-rose-500/20 text-rose-400 rounded-md text-[10px] font-semibold cursor-pointer">Delete</button>
                     </div>
                   </div>
                 </div>
               </div>
-            \`).join('');
+            `;
+            }).join('');
           }
 
           // Render Contacts/Messages Pane

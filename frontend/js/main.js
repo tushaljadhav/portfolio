@@ -609,10 +609,15 @@ function renderCertifications(certs) {
   container.innerHTML = '';
 
   certs.forEach((c) => {
+    let url = (c.credentialUrl || '#').trim();
+    if (url !== '#' && url && !url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://' + url;
+    }
+    const hasValidUrl = url && url !== '#';
     container.innerHTML += `
       <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-slate-700/60 hover:shadow-sky-500/10 tilt-card">
         <div class="overflow-hidden bg-slate-900 aspect-video rounded-t-3xl relative">
-          <img src="${c.image}" alt="${c.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-102" />
+          <img src="${c.image || 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80'}" alt="${c.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-102" />
         </div>
         <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
           <div>
@@ -621,8 +626,8 @@ function renderCertifications(certs) {
             <p class="mt-3 text-slate-400 text-xs leading-relaxed line-clamp-3">${c.description}</p>
           </div>
           <div class="mt-6 flex items-center justify-between border-t border-slate-800/60 pt-5 text-xs text-slate-400">
-            <span class="font-mono text-[10px] text-slate-500">Issued: ${c.issueDate}</span>
-            <a href="${c.credentialUrl}" target="_blank" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">Verify &rarr;</a>
+            <span class="font-mono text-[10px] text-slate-500">Issued: ${c.issueDate || 'N/A'}</span>
+            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">Verify &rarr;</a>` : ''}
           </div>
         </div>
       </article>
