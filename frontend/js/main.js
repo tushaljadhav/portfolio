@@ -96,28 +96,76 @@ const FALLBACK_EDUCATIONS = [
 
 const FALLBACK_CERTIFICATIONS = [
   {
-    title: 'MTA Database Fundamentals',
-    issuer: 'Microsoft',
-    issueDate: 'Jun 2024',
-    description: 'Core database concepts, relational design, and SQL essentials for modern applications.',
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
-    credentialUrl: 'https://microsoft.com'
+    title: 'Introduction to HTML, CSS, & JavaScript',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Foundational front-end web design using HTML5 semantic structure, modern CSS flexbox/grid layouts, and DOM manipulation with JavaScript.',
+    image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
   },
   {
-    title: 'IBM Data Science Professional',
-    issuer: 'IBM',
-    issueDate: 'Apr 2025',
-    description: 'Full-stack data science toolkit training with Python, visualization, and machine learning fundamentals.',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
-    credentialUrl: 'https://ibm.com'
+    title: 'Introduction to Software Engineering',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Core software engineering principles, Agile lifecycle, system architecture, requirements engineering, and clean code practices.',
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/S6U5T4D1VIY7'
   },
   {
-    title: 'AWS Cloud Practitioner',
-    issuer: 'AWS',
-    issueDate: 'Nov 2024',
-    description: 'Foundational cloud concepts, AWS services, architecture, and best practices for secure deployments.',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
-    credentialUrl: 'https://aws.amazon.com'
+    title: 'Developing Front-End Apps with React',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Created dynamic, single-page UI applications using React components, state management, hooks, and props architecture.',
+    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Getting Started with Git and GitHub',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Version control best practices, branch management, pull requests, merge conflict resolution, and GitHub collaborative workflows.',
+    image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Developing AI Applications with Python',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Built AI application models using Python, OpenCV, Flask, and integrated Watson AI APIs for computer vision and NLP tasks.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Developing Back-End Apps with Node.js and Express',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Mastered server-side web application development using Node.js, Express, async I/O, middleware routing, and RESTful API endpoints.',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Django Application Development with SQL and Databases',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Developed full-stack Python web applications with Django framework, object-relational mapping (ORM), SQLite3, and PostgreSQL.',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Introduction to Cloud Computing',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Fundamental cloud architecture concepts, IaaS/PaaS/SaaS models, hybrid cloud deployments, microservices, and serverless technology.',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Python for Data Science, AI & Development',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Data analysis with Pandas and NumPy, web scraping with BeautifulSoup, REST API communication, and core Python scripting.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
   }
 ];
 
