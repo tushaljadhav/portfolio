@@ -6,7 +6,9 @@ function resolveResumePath() {
   const backendRoot = path.join(__dirname, '..');
   const configuredPath = (process.env.RESUME_FILE_PATH || '').trim();
 
-  const candidates = [];
+  const candidates = [
+    path.join(backendRoot, 'data', 'Tushal_Jadhav_Resume_Official.pdf')
+  ];
 
   if (configuredPath) {
     candidates.push(
@@ -18,9 +20,7 @@ function resolveResumePath() {
     );
   }
 
-  // Fallback files inside backend/data for production safety.
   candidates.push(
-    path.join(backendRoot, 'data', 'Tushal_Jadhav_Resume_Official.pdf'),
     path.join(backendRoot, 'data', 'Tushal_Jadhav_Resume.pdf'),
     path.join(backendRoot, 'data', 'TUSHAL_RESUME (6).pdf'),
     path.join(backendRoot, 'data', 'resume.txt')
