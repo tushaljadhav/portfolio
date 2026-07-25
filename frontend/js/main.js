@@ -774,16 +774,49 @@ function triggerObservers() {
 
 function initResumeDownloadLink() {
   const downloadBtn = document.getElementById('download-resume-link');
-  if (downloadBtn) {
-    downloadBtn.href = apiUrl('/api/download-resume');
-    downloadBtn.setAttribute('target', '_blank');
-    downloadBtn.setAttribute('rel', 'noopener noreferrer');
-    downloadBtn.addEventListener('click', () => {
+  if (!downloadBtn) return;
+
+  downloadBtn.addEventListener('click', async (e) => {
+    e.preventDefault();
+    const originalContent = downloadBtn.innerHTML;
+
+    try {
+      downloadBtn.style.pointerEvents = 'none';
+      downloadBtn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline-block" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        Downloading...
+      `;
+
+      const response = await fetch(apiUrl('/api/download-resume'));
+      if (!response.ok) throw new Error('Resume download failed.');
+
+      const blob = await response.blob();
+      const blobUrl = window.URL.createObjectURL(blob);
+      
+      const tempLink = document.createElement('a');
+      tempLink.style.display = 'none';
+      tempLink.href = blobUrl;
+      tempLink.download = 'Tushal_Jadhav_Resume_Official.pdf';
+      document.body.appendChild(tempLink);
+      tempLink.click();
+
+      window.URL.revokeObjectURL(blobUrl);
+      document.body.removeChild(tempLink);
+
       setTimeout(() => {
         loadPortfolioStats();
-      }, 1500);
-    });
-  }
+      }, 1000);
+    } catch (err) {
+      console.error('Direct blob download error, falling back:', err);
+      window.open(apiUrl('/api/download-resume'), '_blank');
+    } finally {
+      downloadBtn.style.pointerEvents = 'auto';
+      downloadBtn.innerHTML = originalContent;
+    }
+  });
 }
 
 // ON INITIALIZATION
