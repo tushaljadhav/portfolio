@@ -20,6 +20,8 @@ function resolveResumePath() {
 
   // Fallback files inside backend/data for production safety.
   candidates.push(
+    path.join(backendRoot, 'data', 'Tushal_Jadhav_Resume_Official.pdf'),
+    path.join(backendRoot, 'data', 'Tushal_Jadhav_Resume.pdf'),
     path.join(backendRoot, 'data', 'TUSHAL_RESUME (6).pdf'),
     path.join(backendRoot, 'data', 'resume.txt')
   );
@@ -60,7 +62,7 @@ async function downloadResume(req, res) {
       console.error('Resume count update error:', countError.message);
     }
 
-    return res.download(resumePath, 'Tushal_Jadhav_Resume.pdf');
+    return res.download(resumePath, path.basename(resumePath));
   } catch (error) {
     console.error('Resume download error:', error.message);
     return res.status(500).json({
