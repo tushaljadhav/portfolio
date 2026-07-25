@@ -60,7 +60,7 @@ async function downloadResume(req, res) {
       console.error('Resume count update error:', countError.message);
     }
 
-    return res.download(resumePath, path.basename(resumePath));
+    return res.download(resumePath, 'Tushal_Jadhav_Resume.pdf');
   } catch (error) {
     console.error('Resume download error:', error.message);
     return res.status(500).json({
