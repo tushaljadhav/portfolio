@@ -790,7 +790,7 @@ function initResumeDownloadLink() {
         Downloading...
       `;
 
-      const response = await fetch(apiUrl('/api/download-resume'));
+      const response = await fetch(apiUrl(`/api/download-resume?t=${Date.now()}`));
       if (!response.ok) throw new Error('Resume download failed.');
 
       const blob = await response.blob();

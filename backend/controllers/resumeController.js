@@ -62,6 +62,10 @@ async function downloadResume(req, res) {
       console.error('Resume count update error:', countError.message);
     }
 
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+
     return res.download(resumePath, path.basename(resumePath));
   } catch (error) {
     console.error('Resume download error:', error.message);
