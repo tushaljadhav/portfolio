@@ -793,13 +793,20 @@ function initResumeDownloadLink() {
       const response = await fetch(apiUrl(`/api/download-resume?t=${Date.now()}`));
       if (!response.ok) throw new Error('Resume download failed.');
 
+      const disposition = response.headers.get('content-disposition');
+      let filename = 'Tushal_Jadhav_Resume.pdf';
+      if (disposition && disposition.includes('filename=')) {
+        const match = disposition.match(/filename="?([^";]+)"?/);
+        if (match && match[1]) filename = match[1];
+      }
+
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
       
       const tempLink = document.createElement('a');
       tempLink.style.display = 'none';
       tempLink.href = blobUrl;
-      tempLink.download = 'Tushal_Jadhav_Resume_Official.pdf';
+      tempLink.download = filename;
       document.body.appendChild(tempLink);
       tempLink.click();
 

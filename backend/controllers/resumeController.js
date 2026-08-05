@@ -4,17 +4,34 @@ const ResumeDownload = require('../models/ResumeDownload');
 
 function resolveResumePath() {
   const backendRoot = path.join(__dirname, '..');
-  const officialPath = path.join(backendRoot, 'data', 'Tushal_Jadhav_Resume_Official.pdf');
-
-  if (fs.existsSync(officialPath) && fs.statSync(officialPath).isFile()) {
-    return officialPath;
-  }
 
   const configuredPath = (process.env.RESUME_FILE_PATH || '').trim();
   if (configuredPath) {
     const candidate = path.isAbsolute(configuredPath) ? configuredPath : path.join(backendRoot, configuredPath);
     if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
       return candidate;
+    }
+  }
+
+  const candidateNames = [
+    'Tushal_Jadhav_Resume.pdf',
+    'Tushal_Jadhav_Resume_Official.pdf',
+    'resume.pdf',
+    'Resume.pdf'
+  ];
+
+  for (const name of candidateNames) {
+    const candidate = path.join(backendRoot, 'data', name);
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+      return candidate;
+    }
+  }
+
+  const dataDir = path.join(backendRoot, 'data');
+  if (fs.existsSync(dataDir)) {
+    const pdfFiles = fs.readdirSync(dataDir).filter((file) => file.toLowerCase().endsWith('.pdf'));
+    if (pdfFiles.length > 0) {
+      return path.join(dataDir, pdfFiles[0]);
     }
   }
 
