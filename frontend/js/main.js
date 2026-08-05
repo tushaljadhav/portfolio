@@ -790,15 +790,9 @@ function initResumeDownloadLink() {
         Downloading...
       `;
 
-      const response = await fetch(apiUrl(`/api/download-resume?t=${Date.now()}`));
-      if (!response.ok) throw new Error('Resume download failed.');
-
-      const disposition = response.headers.get('content-disposition');
-      let filename = 'Tushal_Jadhav_Resume.pdf';
-      if (disposition && disposition.includes('filename=')) {
-        const match = disposition.match(/filename="?([^";]+)"?/);
-        if (match && match[1]) filename = match[1];
-      }
+      // Fetch static resume directly hosted on Netlify to bypass any backend build delays
+      const response = await fetch(`./Tushal_Jadhav_Resume.pdf?t=${Date.now()}`);
+      if (!response.ok) throw new Error('Static resume fetch failed.');
 
       const blob = await response.blob();
       const blobUrl = window.URL.createObjectURL(blob);
@@ -806,16 +800,17 @@ function initResumeDownloadLink() {
       const tempLink = document.createElement('a');
       tempLink.style.display = 'none';
       tempLink.href = blobUrl;
-      tempLink.download = filename;
+      tempLink.download = 'Tushal_Jadhav_Resume.pdf';
       document.body.appendChild(tempLink);
       tempLink.click();
 
       window.URL.revokeObjectURL(blobUrl);
       document.body.removeChild(tempLink);
 
-      setTimeout(() => {
-        loadPortfolioStats();
-      }, 1000);
+      // Record download count on backend asynchronously
+      fetch(apiUrl(`/api/download-resume?t=${Date.now()}`))
+        .then(() => loadPortfolioStats())
+        .catch(() => {});
     } catch (err) {
       console.error('Direct blob download error, falling back:', err);
       window.open(apiUrl('/api/download-resume'), '_blank');
