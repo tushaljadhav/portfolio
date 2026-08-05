@@ -5,14 +5,6 @@ const ResumeDownload = require('../models/ResumeDownload');
 function resolveResumePath() {
   const backendRoot = path.join(__dirname, '..');
 
-  const configuredPath = (process.env.RESUME_FILE_PATH || '').trim();
-  if (configuredPath) {
-    const candidate = path.isAbsolute(configuredPath) ? configuredPath : path.join(backendRoot, configuredPath);
-    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
-      return candidate;
-    }
-  }
-
   const candidateNames = [
     'Tushal_Jadhav_Resume.pdf',
     'Tushal_Jadhav_Resume_Official.pdf',
@@ -22,6 +14,14 @@ function resolveResumePath() {
 
   for (const name of candidateNames) {
     const candidate = path.join(backendRoot, 'data', name);
+    if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
+      return candidate;
+    }
+  }
+
+  const configuredPath = (process.env.RESUME_FILE_PATH || '').trim();
+  if (configuredPath) {
+    const candidate = path.isAbsolute(configuredPath) ? configuredPath : path.join(backendRoot, configuredPath);
     if (fs.existsSync(candidate) && fs.statSync(candidate).isFile()) {
       return candidate;
     }

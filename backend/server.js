@@ -68,7 +68,7 @@ app.use((req, res, next) => {
 });
 
 app.get('/health', (req, res) => {
-  res.status(200).json({ success: true, status: 'ok', version: '1.0.1-4d83e88' });
+  res.status(200).json({ success: true, status: 'ok', version: '1.0.2-updated-resume' });
 });
 
 app.use('/api', contactRoutes);
