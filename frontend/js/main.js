@@ -924,9 +924,20 @@ function initResumeDownloadLink() {
   });
 }
 
+function initAdminLinks() {
+  const adminUrl = apiUrl('/admin');
+  ['nav-admin-btn', 'mobile-admin-btn', 'footer-admin-btn'].forEach((id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.href = adminUrl;
+    }
+  });
+}
+
 // ON INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
   initResumeDownloadLink();
+  initAdminLinks();
   initCountUpObservers();
   loadDynamicContent();
   loadPortfolioStats();
@@ -1180,8 +1191,13 @@ function initTerminal() {
         printLine('  <span class="text-sky-400 font-bold">skills</span>      - Render skills meter with ascii meters');
         printLine('  <span class="text-sky-400 font-bold">projects</span>    - Render projects summaries');
         printLine('  <span class="text-sky-400 font-bold">contact</span>     - Display coordinates');
+        printLine('  <span class="text-sky-400 font-bold">admin</span>       - Open Admin Dashboard');
         printLine('  <span class="text-sky-400 font-bold">hack</span>        - Trigger simulation mainframe sequence');
         printLine('  <span class="text-sky-400 font-bold">clear</span>       - Clear dashboard pane');
+        break;
+      case 'admin':
+        window.open(apiUrl('/admin'), '_blank');
+        printLine('Opening Admin Dashboard in a new tab...', 'success');
         break;
       case 'about':
         printLine('Tushal Jadhav - Software Engineer based in Mumbai, India.');
