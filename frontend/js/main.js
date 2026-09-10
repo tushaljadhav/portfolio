@@ -414,7 +414,7 @@ if (contactForm) {
 }
 
 // LOCALSTORAGE CACHE HELPERS
-const CMS_CACHE_KEY = 'portfolio_cms_data_v2';
+const CMS_CACHE_KEY = 'portfolio_cms_data_v3';
 const STATS_CACHE_KEY = 'portfolio_stats_data_v1';
 
 function getLocalData(key) {
@@ -571,8 +571,14 @@ async function syncDynamicContentInBackground() {
     if (certsRes.status === 'fulfilled' && certsRes.value.ok) {
       const json = await certsRes.value.json().catch(() => null);
       if (json && Array.isArray(json.data) && json.data.length > 0) {
-        newData.certifications = json.data;
-        updated = true;
+        const hasOldMockData = json.data.some(c => 
+          (c.image && c.image.includes('unsplash.com')) || 
+          (c.title && (c.title.includes('MTA Database') || c.title.includes('IBM Data Science') || c.title.includes('AWS Cloud')))
+        );
+        if (!hasOldMockData) {
+          newData.certifications = json.data;
+          updated = true;
+        }
       }
     }
 

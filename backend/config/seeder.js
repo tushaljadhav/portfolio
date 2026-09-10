@@ -148,10 +148,16 @@ async function seedDatabase() {
       console.log('Seeded default educations successfully.');
     }
 
-    const certificationCount = await Certification.countDocuments();
-    if (certificationCount === 0) {
+    const existingCertifications = await Certification.find();
+    const hasOldMockData = existingCertifications.some(c => 
+      (c.image && c.image.includes('unsplash.com')) || 
+      (c.title && (c.title.includes('MTA Database') || c.title.includes('IBM Data Science') || c.title.includes('AWS Cloud') || c.title.includes('Python for Data Science')))
+    );
+
+    if (existingCertifications.length === 0 || hasOldMockData) {
+      await Certification.deleteMany({});
       await Certification.insertMany(defaultCertifications);
-      console.log('Seeded default certifications successfully.');
+      console.log('Seeded updated genuine certifications successfully.');
     }
   } catch (error) {
     console.error('Error seeding database:', error.message);
