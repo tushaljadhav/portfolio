@@ -4,7 +4,7 @@ const Contact = require('../models/Contact');
 
 function adminLogin(req, res) {
   const { password } = req.body;
-  const adminPassword = process.env.ADMIN_PASSWORD || 'admin123';
+  const adminPassword = process.env.ADMIN_PASSWORD || 'tushal_dev@123';
 
   if (!password) {
     return res.status(400).json({
