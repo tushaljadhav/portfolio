@@ -206,6 +206,7 @@ const FALLBACK_CERTIFICATIONS = [
 
 // STATE STORAGE FOR RENDERED CONTENT
 let portfolioProjects = [];
+let portfolioAchievements = [];
 
 // MOBILE NAV HANDLERS
 const navToggle = document.getElementById('nav-toggle');
@@ -794,25 +795,38 @@ function renderAchievements(achievements) {
   const dotsContainer = document.getElementById('achievements-dots');
   if (!container) return;
 
+  portfolioAchievements = achievements;
   container.innerHTML = '';
 
-  achievements.forEach((a) => {
-    let url = (a.credentialUrl || a.image || '#').trim();
-    const hasValidUrl = url && url !== '#';
+  achievements.forEach((a, index) => {
     container.innerHTML += `
-      <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-slate-700/60 hover:shadow-sky-500/10 tilt-card">
+      <article onclick="openAchievementModal(${index})" class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-500/50 hover:shadow-sky-500/15 tilt-card cursor-pointer" title="Click to view full certificate">
         <div class="overflow-hidden bg-slate-900 aspect-video rounded-t-3xl relative">
-          <img src="${a.image || 'images/certificates/connexa_hackathon_1st_prize.jpg'}" alt="${a.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-102" />
+          <img src="${a.image || 'images/certificates/connexa_hackathon_1st_prize.jpg'}" alt="${a.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center pointer-events-none">
+            <span class="inline-flex items-center gap-1.5 rounded-full bg-slate-950/85 backdrop-blur px-4 py-1.5 text-xs font-semibold text-sky-400 border border-sky-500/40 shadow-lg">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+              </svg>
+              View Full
+            </span>
+          </div>
         </div>
         <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
           <div>
             <div class="inline-flex items-center rounded-full bg-slate-900 px-3.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400 border border-slate-800/80">${a.issuer}</div>
-            <h3 class="mt-5 text-lg font-bold text-white leading-snug">${a.title}</h3>
+            <h3 class="mt-5 text-lg font-bold text-white leading-snug group-hover:text-sky-300 transition">${a.title}</h3>
             <p class="mt-3 text-slate-400 text-xs leading-relaxed line-clamp-3">${a.description}</p>
           </div>
           <div class="mt-6 flex items-center justify-between border-t border-slate-800/60 pt-5 text-xs text-slate-400">
             <span class="font-mono text-[10px] text-slate-500">Issued: ${a.issueDate || 'N/A'}</span>
-            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">View Certificate &rarr;</a>` : ''}
+            <button type="button" onclick="event.stopPropagation(); openAchievementModal(${index});" class="text-sky-400 font-semibold hover:text-sky-300 hover:underline inline-flex items-center gap-1 cursor-pointer">
+              <span>View Certificate</span>
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+              </svg>
+            </button>
           </div>
         </div>
       </article>
@@ -915,16 +929,57 @@ function closeProjectModal() {
   document.body.style.overflow = 'auto'; // Unlock background scroll
 }
 
-// Close modal on escape key
+// INTERACTIVE ACHIEVEMENT CERTIFICATE LIGHTBOX MODAL
+const certModal = document.getElementById('certificate-modal');
+
+function openAchievementModal(index) {
+  const item = portfolioAchievements[index];
+  if (!item) return;
+
+  const modalImg = document.getElementById('cert-modal-img');
+  const modalTitle = document.getElementById('cert-modal-title');
+  const modalIssuer = document.getElementById('cert-modal-issuer');
+  const modalDesc = document.getElementById('cert-modal-desc');
+  const modalDownload = document.getElementById('cert-modal-download');
+  const modalNewTab = document.getElementById('cert-modal-newtab');
+
+  const imgSrc = (item.credentialUrl || item.image || '').trim();
+
+  if (modalImg) {
+    modalImg.src = imgSrc;
+    modalImg.alt = item.title || 'Certificate Preview';
+  }
+  if (modalTitle) modalTitle.textContent = item.title || 'Certificate';
+  if (modalIssuer) modalIssuer.textContent = `${item.issuer || ''} • Issued: ${item.issueDate || 'N/A'}`;
+  if (modalDesc) modalDesc.textContent = item.description || '';
+  if (modalDownload) modalDownload.href = imgSrc;
+  if (modalNewTab) modalNewTab.href = imgSrc;
+
+  certModal?.classList.remove('hidden');
+  document.body.style.overflow = 'hidden'; // Lock background scroll
+}
+
+function closeAchievementModal() {
+  certModal?.classList.add('hidden');
+  // Only restore overflow if project modal is also closed
+  if (!projectModal || projectModal.classList.contains('hidden')) {
+    document.body.style.overflow = 'auto';
+  }
+}
+
+// Close modals on escape key
 document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') {
     closeProjectModal();
+    closeAchievementModal();
   }
 });
 
-// Expose modal function globally for inline onclick execution
+// Expose modal functions globally for inline onclick execution
 window.openProjectModal = openProjectModal;
 window.closeProjectModal = closeProjectModal;
+window.openAchievementModal = openAchievementModal;
+window.closeAchievementModal = closeAchievementModal;
 
 // INTERSECTION OBSERVERS FOR ANIMATIONS
 function initSkillObservers() {
