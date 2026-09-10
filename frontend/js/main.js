@@ -248,10 +248,17 @@ function getSlideWidth(slider) {
   return firstSlide.getBoundingClientRect().width + gap;
 }
 
+const sliderTimers = {};
+
 function initHorizontalSlider(sliderId, buttonAttr) {
   const slider = document.getElementById(sliderId);
   const slideButtons = document.querySelectorAll(`[${buttonAttr}]`);
   if (!slider || slideButtons.length === 0) return;
+
+  if (sliderTimers[sliderId]) {
+    clearInterval(sliderTimers[sliderId]);
+    delete sliderTimers[sliderId];
+  }
 
   const originalSlides = Array.from(slider.children);
   const originalCount = originalSlides.length;
@@ -259,7 +266,6 @@ function initHorizontalSlider(sliderId, buttonAttr) {
   const cloneCount = visibleCount;
   let sliderIndex = cloneCount;
   let slideWidth = 0;
-  let autoSlideTimer = null;
 
   function setActiveSlideButton(index) {
     slideButtons.forEach((button) => {
@@ -319,15 +325,19 @@ function initHorizontalSlider(sliderId, buttonAttr) {
     setActiveSlideButton(currentDot >= 0 ? currentDot : currentDot + originalCount);
   }
 
+  function resetAutoSlide() {
+    if (sliderTimers[sliderId]) {
+      clearInterval(sliderTimers[sliderId]);
+    }
+    sliderTimers[sliderId] = window.setInterval(nextSlide, 5000);
+  }
+
   slideButtons.forEach((button) => {
     button.addEventListener('click', () => {
       const index = Number(button.getAttribute(buttonAttr));
       if (Number.isNaN(index) || index < 0) return;
       goToSlide(index);
-      if (autoSlideTimer) {
-        clearInterval(autoSlideTimer);
-      }
-      autoSlideTimer = window.setInterval(nextSlide, 5000);
+      resetAutoSlide();
     });
   });
 
@@ -336,7 +346,7 @@ function initHorizontalSlider(sliderId, buttonAttr) {
     updateSliderPosition(true);
   });
 
-  autoSlideTimer = window.setInterval(nextSlide, 5000);
+  resetAutoSlide();
   setActiveSlideButton(0);
 }
 
@@ -395,105 +405,186 @@ if (contactForm) {
   });
 }
 
+// LOCALSTORAGE CACHE HELPERS
+const CMS_CACHE_KEY = 'portfolio_cms_data_v1';
+const STATS_CACHE_KEY = 'portfolio_stats_data_v1';
+
+function getLocalData(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    return raw ? JSON.parse(raw) : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+function setLocalData(key, value) {
+  try {
+    localStorage.setItem(key, JSON.stringify(value));
+  } catch (e) {
+    // Ignore quota errors
+  }
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 6000) {
+  const controller = new AbortController();
+  const id = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const res = await fetch(url, { ...options, signal: controller.signal });
+    clearTimeout(id);
+    return res;
+  } catch (err) {
+    clearTimeout(id);
+    throw err;
+  }
+}
+
 // PUBLIC STATS COUNTER LOADER
 async function loadPortfolioStats() {
   const resumeCountEl = document.getElementById('resume-count');
   const visitorCountEl = document.getElementById('visitor-count');
 
-  try {
-    const statsRes = await fetch(apiUrl('/api/public-stats'));
+  // 1. Instantly use cached stats if available
+  const cachedStats = getLocalData(STATS_CACHE_KEY);
+  if (cachedStats) {
+    if (resumeCountEl && cachedStats.resumeDownloads !== undefined) {
+      resumeCountEl.textContent = String(cachedStats.resumeDownloads);
+    }
+    if (visitorCountEl && cachedStats.totalVisitors !== undefined) {
+      visitorCountEl.textContent = String(cachedStats.totalVisitors);
+    }
+  }
 
+  if (!API_BASE_URL) return;
+
+  try {
+    const statsRes = await fetchWithTimeout(apiUrl('/api/public-stats'), {}, 5000);
     if (statsRes.ok) {
       const statsData = await statsRes.json();
-      if (resumeCountEl) {
-        resumeCountEl.textContent = String(statsData.resumeDownloads || 0);
-      }
-      if (visitorCountEl) {
-        visitorCountEl.textContent = String(statsData.totalVisitors || 0);
+      if (statsData) {
+        setLocalData(STATS_CACHE_KEY, statsData);
+        if (resumeCountEl && statsData.resumeDownloads !== undefined) {
+          resumeCountEl.textContent = String(statsData.resumeDownloads);
+        }
+        if (visitorCountEl && statsData.totalVisitors !== undefined) {
+          visitorCountEl.textContent = String(statsData.totalVisitors);
+        }
       }
     }
   } catch (error) {
-    console.error('Stats fetch error:', error.message);
+    // Backend is asleep or unreachable; silently continue with defaults/cached
   }
 }
 
-// DYNAMIC CMS RENDERING LOGIC
-async function loadDynamicContent() {
-  try {
-    // 1. Fetch Projects
-    let projects = [];
-    try {
-      const res = await fetch(apiUrl('/api/projects'));
-      if (res.ok) {
-        projects = (await res.json()).data || [];
-      }
-    } catch (e) {
-      console.warn('Projects API unreachable, using fallbacks.', e);
-    }
-    if (projects.length === 0) {
-      projects = FALLBACK_PROJECTS;
-    }
-    portfolioProjects = projects;
-    renderProjects(projects);
-
-    // 2. Fetch Skills
-    let skills = [];
-    try {
-      const res = await fetch(apiUrl('/api/skills'));
-      if (res.ok) {
-        skills = (await res.json()).data || [];
-      }
-    } catch (e) {
-      console.warn('Skills API unreachable, using fallbacks.', e);
-    }
-    if (skills.length === 0) {
-      skills = FALLBACK_SKILLS;
-    }
-    renderSkills(skills);
-
-    // 3. Fetch Educations
-    let educations = [];
-    try {
-      const res = await fetch(apiUrl('/api/educations'));
-      if (res.ok) {
-        educations = (await res.json()).data || [];
-      }
-    } catch (e) {
-      console.warn('Educations API unreachable, using fallbacks.', e);
-    }
-    if (educations.length === 0) {
-      educations = FALLBACK_EDUCATIONS;
-    }
-    renderEducations(educations);
-
-    // 4. Fetch Certifications
-    let certifications = [];
-    try {
-      const res = await fetch(apiUrl('/api/certifications'));
-      if (res.ok) {
-        certifications = (await res.json()).data || [];
-      }
-    } catch (e) {
-      console.warn('Certifications API unreachable, using fallbacks.', e);
-    }
-    if (certifications.length === 0) {
-      certifications = FALLBACK_CERTIFICATIONS;
-    }
-    renderCertifications(certifications);
-
-    // Initialize horizontal slider scripts now that HTML elements are written to DOM
-    initHorizontalSlider('projects-slider', 'data-slide');
-    initHorizontalSlider('certifications-slider', 'data-cert-slide');
-
-    // Trigger Intersection Observers for animation fills
-    triggerObservers();
-
-    // Initialize 3D Perspective Card Tilt Effects
-    initTiltEffect();
-
-  } catch (error) {
-    console.error('General content load error:', error);
+function getInitialCMSData() {
+  const cached = getLocalData(CMS_CACHE_KEY);
+  if (cached && typeof cached === 'object') {
+    return {
+      projects: (Array.isArray(cached.projects) && cached.projects.length > 0) ? cached.projects : FALLBACK_PROJECTS,
+      skills: (Array.isArray(cached.skills) && cached.skills.length > 0) ? cached.skills : FALLBACK_SKILLS,
+      educations: (Array.isArray(cached.educations) && cached.educations.length > 0) ? cached.educations : FALLBACK_EDUCATIONS,
+      certifications: (Array.isArray(cached.certifications) && cached.certifications.length > 0) ? cached.certifications : FALLBACK_CERTIFICATIONS,
+    };
   }
+  return {
+    projects: FALLBACK_PROJECTS,
+    skills: FALLBACK_SKILLS,
+    educations: FALLBACK_EDUCATIONS,
+    certifications: FALLBACK_CERTIFICATIONS,
+  };
+}
+
+function renderAllContent(data) {
+  portfolioProjects = data.projects || FALLBACK_PROJECTS;
+  renderProjects(portfolioProjects);
+  renderSkills(data.skills || FALLBACK_SKILLS);
+  renderEducations(data.educations || FALLBACK_EDUCATIONS);
+  renderCertifications(data.certifications || FALLBACK_CERTIFICATIONS);
+
+  // Initialize horizontal slider scripts now that HTML elements are written to DOM
+  initHorizontalSlider('projects-slider', 'data-slide');
+  initHorizontalSlider('certifications-slider', 'data-cert-slide');
+
+  // Trigger skill progress bars animation
+  initSkillObservers();
+
+  // Initialize 3D Perspective Card Tilt Effects
+  initTiltEffect();
+}
+
+// Non-blocking parallel background sync with Render
+async function syncDynamicContentInBackground() {
+  if (!API_BASE_URL) return;
+
+  // Send a lightweight wake-up ping to Render in background
+  fetchWithTimeout(apiUrl('/health'), {}, 3500).catch(() => {});
+
+  try {
+    const [projectsRes, skillsRes, educationsRes, certsRes] = await Promise.allSettled([
+      fetchWithTimeout(apiUrl('/api/projects'), {}, 6000),
+      fetchWithTimeout(apiUrl('/api/skills'), {}, 6000),
+      fetchWithTimeout(apiUrl('/api/educations'), {}, 6000),
+      fetchWithTimeout(apiUrl('/api/certifications'), {}, 6000),
+    ]);
+
+    const initial = getInitialCMSData();
+    let updated = false;
+    const newData = {
+      projects: initial.projects,
+      skills: initial.skills,
+      educations: initial.educations,
+      certifications: initial.certifications,
+    };
+
+    if (projectsRes.status === 'fulfilled' && projectsRes.value.ok) {
+      const json = await projectsRes.value.json().catch(() => null);
+      if (json && Array.isArray(json.data) && json.data.length > 0) {
+        newData.projects = json.data;
+        updated = true;
+      }
+    }
+
+    if (skillsRes.status === 'fulfilled' && skillsRes.value.ok) {
+      const json = await skillsRes.value.json().catch(() => null);
+      if (json && Array.isArray(json.data) && json.data.length > 0) {
+        newData.skills = json.data;
+        updated = true;
+      }
+    }
+
+    if (educationsRes.status === 'fulfilled' && educationsRes.value.ok) {
+      const json = await educationsRes.value.json().catch(() => null);
+      if (json && Array.isArray(json.data) && json.data.length > 0) {
+        newData.educations = json.data;
+        updated = true;
+      }
+    }
+
+    if (certsRes.status === 'fulfilled' && certsRes.value.ok) {
+      const json = await certsRes.value.json().catch(() => null);
+      if (json && Array.isArray(json.data) && json.data.length > 0) {
+        newData.certifications = json.data;
+        updated = true;
+      }
+    }
+
+    if (updated) {
+      setLocalData(CMS_CACHE_KEY, newData);
+      renderAllContent(newData);
+    }
+  } catch (err) {
+    console.debug('Background sync skipped:', err.message);
+  }
+}
+
+// DYNAMIC CMS RENDERING LOGIC (Instant synchronous render + background revalidate)
+function loadDynamicContent() {
+  // 1. Immediately render initial data with 0ms delay
+  const initialData = getInitialCMSData();
+  renderAllContent(initialData);
+
+  // 2. Fetch fresh updates in the background without blocking UI
+  syncDynamicContentInBackground();
 }
 
 // Render dynamic projects
@@ -696,7 +787,7 @@ window.openProjectModal = openProjectModal;
 window.closeProjectModal = closeProjectModal;
 
 // INTERSECTION OBSERVERS FOR ANIMATIONS
-function triggerObservers() {
+function initSkillObservers() {
   const progressBars = document.querySelectorAll('.progress-bar-fill');
   const barObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -736,11 +827,15 @@ function triggerObservers() {
       
       if (progress < 1) {
         window.requestAnimationFrame(step);
+      } else {
+        element.textContent = `${targetVal}%`;
       }
     }
     window.requestAnimationFrame(step);
   }
+}
 
+function initCountUpObservers() {
   const countUpElements = document.querySelectorAll('.count-up');
   const countUpObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
@@ -754,22 +849,30 @@ function triggerObservers() {
 
       function animateCount(now) {
         const progress = Math.min((now - startTime) / duration, 1);
-        const value = Math.floor(targetCount * progress);
+        const easeProgress = 1 - Math.pow(1 - progress, 3); // Cubic ease-out
+        const value = Math.floor(targetCount * easeProgress);
         element.textContent = `${value}${suffix}`;
 
         if (progress < 1) {
           window.requestAnimationFrame(animateCount);
+        } else {
+          element.textContent = `${targetCount}${suffix}`;
         }
       }
 
       window.requestAnimationFrame(animateCount);
       countUpObserver.unobserve(element);
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.1 });
 
   countUpElements.forEach((element) => {
     countUpObserver.observe(element);
   });
+}
+
+function triggerObservers() {
+  initSkillObservers();
+  initCountUpObservers();
 }
 
 function initResumeDownloadLink() {
@@ -824,6 +927,7 @@ function initResumeDownloadLink() {
 // ON INITIALIZATION
 document.addEventListener('DOMContentLoaded', () => {
   initResumeDownloadLink();
+  initCountUpObservers();
   loadDynamicContent();
   loadPortfolioStats();
   initParticles();
