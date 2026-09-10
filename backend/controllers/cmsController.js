@@ -2,6 +2,7 @@ const Project = require('../models/Project');
 const Skill = require('../models/Skill');
 const Education = require('../models/Education');
 const Certification = require('../models/Certification');
+const Achievement = require('../models/Achievement');
 
 // PROJECTS CRUD
 async function getProjects(req, res) {
@@ -175,6 +176,49 @@ async function deleteCertification(req, res) {
   }
 }
 
+// ACHIEVEMENTS CRUD
+async function getAchievements(req, res) {
+  try {
+    const achievements = await Achievement.find().sort({ createdAt: -1 });
+    return res.status(200).json({ success: true, count: achievements.length, data: achievements });
+  } catch (error) {
+    return res.status(500).json({ success: false, message: 'Error retrieving achievements: ' + error.message });
+  }
+}
+
+async function createAchievement(req, res) {
+  try {
+    const newAchievement = await Achievement.create(req.body);
+    return res.status(201).json({ success: true, data: newAchievement });
+  } catch (error) {
+    return res.status(400).json({ success: false, message: 'Error creating achievement: ' + error.message });
+  }
+}
+
+async function updateAchievement(req, res) {
+  try {
+    const updatedAchievement = await Achievement.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+    if (!updatedAchievement) {
+      return res.status(404).json({ success: false, message: 'Achievement not found' });
+    }
+    return res.status(200).json({ success: true, data: updatedAchievement });
+  } catch (error) {
+    return res.status(400).json({ success: false, message: 'Error updating achievement: ' + error.message });
+  }
+}
+
+async function deleteAchievement(req, res) {
+  try {
+    const deletedAchievement = await Achievement.findByIdAndDelete(req.params.id);
+    if (!deletedAchievement) {
+      return res.status(404).json({ success: false, message: 'Achievement not found' });
+    }
+    return res.status(200).json({ success: true, message: 'Achievement deleted successfully' });
+  } catch (error) {
+    return res.status(400).json({ success: false, message: 'Error deleting achievement: ' + error.message });
+  }
+}
+
 module.exports = {
   getProjects,
   createProject,
@@ -192,4 +236,8 @@ module.exports = {
   createCertification,
   updateCertification,
   deleteCertification,
+  getAchievements,
+  createAchievement,
+  updateAchievement,
+  deleteAchievement,
 };

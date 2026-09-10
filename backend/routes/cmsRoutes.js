@@ -17,6 +17,10 @@ const {
   createCertification,
   updateCertification,
   deleteCertification,
+  getAchievements,
+  createAchievement,
+  updateAchievement,
+  deleteAchievement,
 } = require('../controllers/cmsController');
 
 const router = express.Router();
@@ -44,5 +48,11 @@ router.get('/certifications', getCertifications);
 router.post('/certifications', requireAdmin, createCertification);
 router.put('/certifications/:id', requireAdmin, updateCertification);
 router.delete('/certifications/:id', requireAdmin, deleteCertification);
+
+// Achievements
+router.get('/achievements', getAchievements);
+router.post('/achievements', requireAdmin, createAchievement);
+router.put('/achievements/:id', requireAdmin, updateAchievement);
+router.delete('/achievements/:id', requireAdmin, deleteAchievement);
 
 module.exports = router;

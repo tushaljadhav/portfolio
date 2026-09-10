@@ -94,7 +94,7 @@ const FALLBACK_EDUCATIONS = [
   }
 ];
 
-const FALLBACK_CERTIFICATIONS = [
+const FALLBACK_ACHIEVEMENTS = [
   {
     title: '1st Prize - CONNEXA Hackathon',
     issuer: 'Kirti College (Autonomous)',
@@ -126,6 +126,81 @@ const FALLBACK_CERTIFICATIONS = [
     description: 'Participated actively in the CONNEXA Hackathon, engaging in fast-paced software development, teamwork, and technical solution building.',
     image: 'images/certificates/connexa_hackathon_participation.jpg',
     credentialUrl: 'images/certificates/connexa_hackathon_participation.jpg'
+  }
+];
+
+const FALLBACK_CERTIFICATIONS = [
+  {
+    title: 'Introduction to HTML, CSS, & JavaScript',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Foundational front-end web design using HTML5 semantic structure, modern CSS flexbox/grid layouts, and DOM manipulation with JavaScript.',
+    image: 'https://images.unsplash.com/photo-1542831371-29b0f74f9713?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Introduction to Software Engineering',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Core software engineering principles, Agile lifecycle, system architecture, requirements engineering, and clean code practices.',
+    image: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org/account/accomplishments/verify/S6U5T4D1VIY7'
+  },
+  {
+    title: 'Developing Front-End Apps with React',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Created dynamic, single-page UI applications using React components, state management, hooks, and props architecture.',
+    image: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Getting Started with Git and GitHub',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Version control best practices, branch management, pull requests, merge conflict resolution, and GitHub collaborative workflows.',
+    image: 'https://images.unsplash.com/photo-1618401471353-b98afee0b2eb?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Developing AI Applications with Python',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Built AI application models using Python, OpenCV, Flask, and integrated Watson AI APIs for computer vision and NLP tasks.',
+    image: 'https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Developing Back-End Apps with Node.js and Express',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Mastered server-side web application development using Node.js, Express, async I/O, middleware routing, and RESTful API endpoints.',
+    image: 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Django Application Development with SQL and Databases',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Developed full-stack Python web applications with Django framework, object-relational mapping (ORM), SQLite3, and PostgreSQL.',
+    image: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Introduction to Cloud Computing',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Fundamental cloud architecture concepts, IaaS/PaaS/SaaS models, hybrid cloud deployments, microservices, and serverless technology.',
+    image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
+  },
+  {
+    title: 'Python for Data Science, AI & Development',
+    issuer: 'IBM / Coursera',
+    issueDate: '2024',
+    description: 'Data analysis with Pandas and NumPy, web scraping with BeautifulSoup, REST API communication, and core Python scripting.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    credentialUrl: 'https://www.coursera.org'
   }
 ];
 
@@ -414,7 +489,7 @@ if (contactForm) {
 }
 
 // LOCALSTORAGE CACHE HELPERS
-const CMS_CACHE_KEY = 'portfolio_cms_data_v3';
+const CMS_CACHE_KEY = 'portfolio_cms_data_v4';
 const STATS_CACHE_KEY = 'portfolio_stats_data_v1';
 
 function getLocalData(key) {
@@ -491,6 +566,7 @@ function getInitialCMSData() {
       projects: (Array.isArray(cached.projects) && cached.projects.length > 0) ? cached.projects : FALLBACK_PROJECTS,
       skills: (Array.isArray(cached.skills) && cached.skills.length > 0) ? cached.skills : FALLBACK_SKILLS,
       educations: (Array.isArray(cached.educations) && cached.educations.length > 0) ? cached.educations : FALLBACK_EDUCATIONS,
+      achievements: (Array.isArray(cached.achievements) && cached.achievements.length > 0) ? cached.achievements : FALLBACK_ACHIEVEMENTS,
       certifications: (Array.isArray(cached.certifications) && cached.certifications.length > 0) ? cached.certifications : FALLBACK_CERTIFICATIONS,
     };
   }
@@ -498,6 +574,7 @@ function getInitialCMSData() {
     projects: FALLBACK_PROJECTS,
     skills: FALLBACK_SKILLS,
     educations: FALLBACK_EDUCATIONS,
+    achievements: FALLBACK_ACHIEVEMENTS,
     certifications: FALLBACK_CERTIFICATIONS,
   };
 }
@@ -507,10 +584,12 @@ function renderAllContent(data) {
   renderProjects(portfolioProjects);
   renderSkills(data.skills || FALLBACK_SKILLS);
   renderEducations(data.educations || FALLBACK_EDUCATIONS);
+  renderAchievements(data.achievements || FALLBACK_ACHIEVEMENTS);
   renderCertifications(data.certifications || FALLBACK_CERTIFICATIONS);
 
   // Initialize horizontal slider scripts now that HTML elements are written to DOM
   initHorizontalSlider('projects-slider', 'data-slide');
+  initHorizontalSlider('achievements-slider', 'data-achievement-slide');
   initHorizontalSlider('certifications-slider', 'data-cert-slide');
 
   // Trigger skill progress bars animation
@@ -528,10 +607,11 @@ async function syncDynamicContentInBackground() {
   fetchWithTimeout(apiUrl('/health'), {}, 3500).catch(() => {});
 
   try {
-    const [projectsRes, skillsRes, educationsRes, certsRes] = await Promise.allSettled([
+    const [projectsRes, skillsRes, educationsRes, achievementsRes, certsRes] = await Promise.allSettled([
       fetchWithTimeout(apiUrl('/api/projects'), {}, 6000),
       fetchWithTimeout(apiUrl('/api/skills'), {}, 6000),
       fetchWithTimeout(apiUrl('/api/educations'), {}, 6000),
+      fetchWithTimeout(apiUrl('/api/achievements'), {}, 6000),
       fetchWithTimeout(apiUrl('/api/certifications'), {}, 6000),
     ]);
 
@@ -541,6 +621,7 @@ async function syncDynamicContentInBackground() {
       projects: initial.projects,
       skills: initial.skills,
       educations: initial.educations,
+      achievements: initial.achievements,
       certifications: initial.certifications,
     };
 
@@ -568,17 +649,19 @@ async function syncDynamicContentInBackground() {
       }
     }
 
+    if (achievementsRes.status === 'fulfilled' && achievementsRes.value.ok) {
+      const json = await achievementsRes.value.json().catch(() => null);
+      if (json && Array.isArray(json.data) && json.data.length > 0) {
+        newData.achievements = json.data;
+        updated = true;
+      }
+    }
+
     if (certsRes.status === 'fulfilled' && certsRes.value.ok) {
       const json = await certsRes.value.json().catch(() => null);
       if (json && Array.isArray(json.data) && json.data.length > 0) {
-        const hasOldMockData = json.data.some(c => 
-          (c.image && c.image.includes('unsplash.com')) || 
-          (c.title && (c.title.includes('MTA Database') || c.title.includes('IBM Data Science') || c.title.includes('AWS Cloud')))
-        );
-        if (!hasOldMockData) {
-          newData.certifications = json.data;
-          updated = true;
-        }
+        newData.certifications = json.data;
+        updated = true;
       }
     }
 
@@ -705,6 +788,49 @@ function renderEducations(educations) {
   });
 }
 
+// Render dynamic achievements
+function renderAchievements(achievements) {
+  const container = document.getElementById('achievements-slider');
+  const dotsContainer = document.getElementById('achievements-dots');
+  if (!container) return;
+
+  container.innerHTML = '';
+
+  achievements.forEach((a) => {
+    let url = (a.credentialUrl || a.image || '#').trim();
+    const hasValidUrl = url && url !== '#';
+    container.innerHTML += `
+      <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-slate-700/60 hover:shadow-sky-500/10 tilt-card">
+        <div class="overflow-hidden bg-slate-900 aspect-video rounded-t-3xl relative">
+          <img src="${a.image || 'images/certificates/connexa_hackathon_1st_prize.jpg'}" alt="${a.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-102" />
+        </div>
+        <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
+          <div>
+            <div class="inline-flex items-center rounded-full bg-slate-900 px-3.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400 border border-slate-800/80">${a.issuer}</div>
+            <h3 class="mt-5 text-lg font-bold text-white leading-snug">${a.title}</h3>
+            <p class="mt-3 text-slate-400 text-xs leading-relaxed line-clamp-3">${a.description}</p>
+          </div>
+          <div class="mt-6 flex items-center justify-between border-t border-slate-800/60 pt-5 text-xs text-slate-400">
+            <span class="font-mono text-[10px] text-slate-500">Issued: ${a.issueDate || 'N/A'}</span>
+            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">View Certificate &rarr;</a>` : ''}
+          </div>
+        </div>
+      </article>
+    `;
+  });
+
+  // Render Dot buttons
+  if (dotsContainer) {
+    dotsContainer.innerHTML = '';
+    achievements.forEach((_, index) => {
+      const activeClass = index === 0 ? 'bg-sky-400' : 'bg-slate-700';
+      dotsContainer.innerHTML += `
+        <button type="button" data-achievement-slide="${index}" class="h-3 w-3 rounded-full ${activeClass} transition cursor-pointer" aria-label="Achievement ${index + 1}"></button>
+      `;
+    });
+  }
+}
+
 // Render dynamic certifications
 function renderCertifications(certs) {
   const container = document.getElementById('certifications-slider');
@@ -732,7 +858,7 @@ function renderCertifications(certs) {
           </div>
           <div class="mt-6 flex items-center justify-between border-t border-slate-800/60 pt-5 text-xs text-slate-400">
             <span class="font-mono text-[10px] text-slate-500">Issued: ${c.issueDate || 'N/A'}</span>
-            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">View Certificate &rarr;</a>` : ''}
+            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">Verify &rarr;</a>` : ''}
           </div>
         </div>
       </article>
