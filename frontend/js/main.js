@@ -96,28 +96,36 @@ const FALLBACK_EDUCATIONS = [
 
 const FALLBACK_CERTIFICATIONS = [
   {
-    title: 'MTA Database Fundamentals',
-    issuer: 'Microsoft',
-    issueDate: 'Jun 2024',
-    description: 'Core database concepts, relational design, and SQL essentials for modern applications.',
-    image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80',
-    credentialUrl: 'https://microsoft.com'
+    title: '1st Prize - CONNEXA Hackathon',
+    issuer: 'Kirti College (Autonomous)',
+    issueDate: '2024',
+    description: 'Secured 1st Prize in CONNEXA Hackathon by developing a high-impact software prototype under strict time limits, demonstrating rapid problem-solving and clean technical execution.',
+    image: 'images/certificates/connexa_hackathon_1st_prize.jpg',
+    credentialUrl: 'images/certificates/connexa_hackathon_1st_prize.jpg'
   },
   {
-    title: 'IBM Data Science Professional',
-    issuer: 'IBM',
-    issueDate: 'Apr 2025',
-    description: 'Full-stack data science toolkit training with Python, visualization, and machine learning fundamentals.',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80',
-    credentialUrl: 'https://ibm.com'
+    title: 'Kirti Avishkar Research Convention - Consolation Prize',
+    issuer: 'Deccan Education Society',
+    issueDate: 'Nov 2023',
+    description: 'Presented a research project titled "Remote Lab Monitoring System (RLMS)" at the UG level, securing a medal and Consolation Prize in the final round of the research competition.',
+    image: 'images/certificates/kirti_avishkar_rlms.jpg',
+    credentialUrl: 'images/certificates/kirti_avishkar_rlms.jpg'
   },
   {
-    title: 'AWS Cloud Practitioner',
-    issuer: 'AWS',
-    issueDate: 'Nov 2024',
-    description: 'Foundational cloud concepts, AWS services, architecture, and best practices for secure deployments.',
-    image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=1200&q=80',
-    credentialUrl: 'https://aws.amazon.com'
+    title: 'Top 20 Finalist - MSSU State Ideation Challenge',
+    issuer: 'Maharashtra State Skills University (MSSU)',
+    issueDate: 'Mar 2024',
+    description: 'Selected among the Top 20 finalist teams across Maharashtra for developing and pitching an innovative tech-driven solution to state innovation and entrepreneurship leaders.',
+    image: 'images/certificates/mssu_ideation_top20.jpg',
+    credentialUrl: 'images/certificates/mssu_ideation_top20.jpg'
+  },
+  {
+    title: 'CONNEXA Hackathon Participation',
+    issuer: 'Kirti College (Autonomous)',
+    issueDate: '2024',
+    description: 'Participated actively in the CONNEXA Hackathon, engaging in fast-paced software development, teamwork, and technical solution building.',
+    image: 'images/certificates/connexa_hackathon_participation.jpg',
+    credentialUrl: 'images/certificates/connexa_hackathon_participation.jpg'
   }
 ];
 
@@ -406,7 +414,7 @@ if (contactForm) {
 }
 
 // LOCALSTORAGE CACHE HELPERS
-const CMS_CACHE_KEY = 'portfolio_cms_data_v1';
+const CMS_CACHE_KEY = 'portfolio_cms_data_v2';
 const STATS_CACHE_KEY = 'portfolio_stats_data_v1';
 
 function getLocalData(key) {
@@ -718,7 +726,7 @@ function renderCertifications(certs) {
           </div>
           <div class="mt-6 flex items-center justify-between border-t border-slate-800/60 pt-5 text-xs text-slate-400">
             <span class="font-mono text-[10px] text-slate-500">Issued: ${c.issueDate || 'N/A'}</span>
-            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">Verify &rarr;</a>` : ''}
+            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">View Certificate &rarr;</a>` : ''}
           </div>
         </div>
       </article>
