@@ -8,6 +8,15 @@ function apiUrl(pathname) {
   return `${API_BASE_URL.replace(/\/$/, '')}${normalizedPath}`;
 }
 
+function resolveMediaUrl(url) {
+  if (!url) return '';
+  const trimmed = String(url).trim();
+  if (trimmed.startsWith('http://') || trimmed.startsWith('https://') || trimmed.startsWith('data:')) {
+    return trimmed;
+  }
+  return apiUrl(trimmed);
+}
+
 // Fallback Default Datasets in case Backend is unreachable or empty
 const FALLBACK_PROJECTS = [
   {
@@ -698,18 +707,18 @@ function renderProjects(projects) {
   projects.forEach((p, index) => {
     const tagsHtml = (p.tags || []).map(t => `<span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">${t}</span>`).join('');
     container.innerHTML += `
-      <div onclick="openProjectModal(${index})" class="group overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-slate-700/60 hover:shadow-sky-500/10 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[30rem] flex flex-col justify-between cursor-pointer tilt-card">
+      <div onclick="openProjectModal(${index})" class="group overflow-hidden rounded-3xl border border-slate-800 bg-slate-950/70 shadow-xl shadow-slate-950/20 flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[30rem] flex flex-col justify-between cursor-pointer tilt-card">
         <div class="overflow-hidden bg-slate-900 aspect-video rounded-t-3xl relative">
-          <img src="${p.image}" alt="${p.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          <img src="${resolveMediaUrl(p.image)}" alt="${p.title}" class="h-full w-full object-cover card-img-smooth" />
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/10 to-transparent opacity-60"></div>
         </div>
         <div class="p-6 sm:p-8 flex flex-col justify-between flex-1">
           <div>
             <div class="flex justify-between items-center gap-2">
               <span class="text-[10px] font-mono tracking-widest text-slate-500 uppercase">${p.category || 'Development'}</span>
-              <span class="text-xs font-semibold text-sky-400">View Project &rarr;</span>
+              <span class="text-xs font-semibold text-sky-400 group-hover:text-sky-300">View Project &rarr;</span>
             </div>
-            <h3 class="text-xl font-bold text-white mt-2 group-hover:text-sky-400 transition-colors">${p.title}</h3>
+            <h3 class="text-xl font-bold text-white mt-2 group-hover:text-sky-300 transition-colors">${p.title}</h3>
             <p class="mt-4 text-slate-400 text-sm leading-relaxed line-clamp-3">${p.description}</p>
             <div class="mt-4 flex flex-wrap gap-1.5">
               ${tagsHtml}
@@ -733,20 +742,20 @@ function renderProjects(projects) {
 }
 
 function renderSkills(skills) {
-  const container = document.getElementById('skills-bars-container');
+  const container = document.getElementById('skills-container');
   if (!container) return;
 
   container.innerHTML = '';
 
   skills.forEach((s) => {
     container.innerHTML += `
-      <div class="glass-panel p-6 rounded-3xl glow-border tilt-card">
-        <div class="flex justify-between items-center mb-2">
-          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-slate-300">${s.name}</p>
-          <span class="skill-pct text-sm font-bold font-mono text-sky-400" data-target="${s.percentage}">0%</span>
+      <div class="glass-panel rounded-2xl p-4 border border-slate-800/80 transition-all duration-300">
+        <div class="flex justify-between text-xs font-semibold text-slate-300 mb-2">
+          <span>${s.name}</span>
+          <span class="text-sky-400 font-mono skill-pct" data-target="${s.percentage}">0%</span>
         </div>
-        <div class="h-2 rounded-full bg-slate-900/60 overflow-hidden border border-slate-800/40">
-          <div class="progress-bar-fill h-full w-0 rounded-full bg-gradient-to-r from-sky-400 to-indigo-500 transition-all duration-[1200ms] ease-out" data-width="${s.percentage}%"></div>
+        <div class="h-2 w-full rounded-full bg-slate-900 overflow-hidden">
+          <div class="progress-bar-fill h-full rounded-full bg-gradient-to-r from-sky-500 to-indigo-500 transition-all duration-[1200ms] ease-out" data-width="${s.percentage}%" style="width: 0%;"></div>
         </div>
       </div>
     `;
@@ -761,22 +770,16 @@ function renderEducations(educations) {
   container.innerHTML = '';
 
   educations.forEach((edu) => {
-    const tagsHtml = (edu.tags || []).map(t => `<span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300">${t}</span>`).join('');
+    const tagsHtml = (edu.tags || []).map(t => `<span class="rounded-full bg-sky-500/10 px-3 py-1 text-xs text-sky-300 border border-sky-500/20">${t}</span>`).join('');
     container.innerHTML += `
-      <div class="relative flex flex-col items-center">
-        <!-- Animated pulsing timeline dot -->
-        <div class="flex h-16 w-16 items-center justify-center rounded-full bg-slate-950 border-4 border-slate-800 timeline-dot z-10 shadow-lg shadow-sky-500/5">
-          <svg class="w-7 h-7 text-sky-400 glow-icon" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422A12.083 12.083 0 0121 20.055M12 14L5.84 10.578A12.083 12.083 0 003 20.055"></path>
-          </svg>
-        </div>
-        <!-- Card -->
-        <div class="mt-6 rounded-[32px] border border-slate-800 bg-slate-950/70 p-7 shadow-xl shadow-slate-950/20 hover:shadow-sky-500/10 transition-all duration-300 hover:-translate-y-1.5 min-h-[22rem] flex flex-col justify-between w-full max-w-sm tilt-card">
+      <div class="relative flex flex-col items-center group">
+        <div class="timeline-dot h-5 w-5 rounded-full border-4 border-slate-950 bg-sky-400 shadow-md shadow-sky-500/50 z-10"></div>
+        <div class="mt-6 rounded-[32px] border border-slate-800 bg-slate-950/70 p-7 shadow-xl shadow-slate-950/20 tilt-card min-h-[22rem] flex flex-col justify-between w-full max-w-sm">
           <div>
             <div class="text-center mb-4">
               <span class="text-[11px] font-mono font-bold tracking-widest text-slate-500 uppercase bg-slate-900 px-3.5 py-1 rounded-full border border-slate-800/80">${edu.year}</span>
             </div>
-            <h3 class="text-lg font-bold text-white mb-2 leading-tight">${edu.degree}</h3>
+            <h3 class="text-lg font-bold text-white mb-2 leading-tight group-hover:text-sky-300 transition-colors">${edu.degree}</h3>
             <p class="text-xs font-semibold text-sky-400 mb-4">${edu.institution}</p>
             <p class="text-slate-400 text-xs leading-relaxed line-clamp-4">${edu.description}</p>
           </div>
@@ -800,9 +803,9 @@ function renderAchievements(achievements) {
 
   achievements.forEach((a, index) => {
     container.innerHTML += `
-      <article onclick="openAchievementModal(${index})" class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-sky-500/50 hover:shadow-sky-500/15 tilt-card cursor-pointer" title="Click to view full certificate">
+      <article onclick="openAchievementModal(${index})" class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-xl shadow-slate-950/20 tilt-card cursor-pointer" title="Click to view full certificate">
         <div class="overflow-hidden bg-slate-900 aspect-video rounded-t-3xl relative">
-          <img src="${a.image || 'images/certificates/connexa_hackathon_1st_prize.jpg'}" alt="${a.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+          <img src="${a.image || 'images/certificates/connexa_hackathon_1st_prize.jpg'}" alt="${a.title}" class="h-full w-full object-cover card-img-smooth" />
           <div class="absolute inset-0 bg-slate-950/40 opacity-0 group-hover:opacity-100 transition duration-300 flex items-center justify-center pointer-events-none">
             <span class="inline-flex items-center gap-1.5 rounded-full bg-slate-950/85 backdrop-blur px-4 py-1.5 text-xs font-semibold text-sky-400 border border-sky-500/40 shadow-lg">
               <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -815,7 +818,7 @@ function renderAchievements(achievements) {
         <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
           <div>
             <div class="inline-flex items-center rounded-full bg-slate-900 px-3.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400 border border-slate-800/80">${a.issuer}</div>
-            <h3 class="mt-5 text-lg font-bold text-white leading-snug group-hover:text-sky-300 transition">${a.title}</h3>
+            <h3 class="mt-5 text-lg font-bold text-white leading-snug group-hover:text-sky-300 transition-colors">${a.title}</h3>
             <p class="mt-3 text-slate-400 text-xs leading-relaxed line-clamp-3">${a.description}</p>
           </div>
           <div class="mt-6 flex items-center justify-between border-t border-slate-800/60 pt-5 text-xs text-slate-400">
@@ -860,19 +863,19 @@ function renderCertifications(certs) {
     }
     const hasValidUrl = url && url !== '#';
     container.innerHTML += `
-      <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-2xl shadow-slate-950/20 transition-all duration-300 hover:-translate-y-1.5 hover:border-slate-700/60 hover:shadow-sky-500/10 tilt-card">
+      <article class="group flex flex-col flex-shrink-0 w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(33.333%-1rem)] min-h-[28rem] rounded-3xl border border-slate-800 bg-slate-950/70 shadow-xl shadow-slate-950/20 tilt-card">
         <div class="overflow-hidden bg-slate-900 aspect-video rounded-t-3xl relative">
-          <img src="${c.image || 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80'}" alt="${c.title}" class="h-full w-full object-cover transition duration-500 group-hover:scale-102" />
+          <img src="${c.image || 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1200&q=80'}" alt="${c.title}" class="h-full w-full object-cover card-img-smooth" />
         </div>
         <div class="flex flex-1 flex-col justify-between p-6 sm:p-8">
           <div>
             <div class="inline-flex items-center rounded-full bg-slate-900 px-3.5 py-1 text-[10px] font-mono uppercase tracking-[0.2em] text-slate-400 border border-slate-800/80">${c.issuer}</div>
-            <h3 class="mt-5 text-lg font-bold text-white leading-snug">${c.title}</h3>
+            <h3 class="mt-5 text-lg font-bold text-white leading-snug group-hover:text-sky-300 transition-colors">${c.title}</h3>
             <p class="mt-3 text-slate-400 text-xs leading-relaxed line-clamp-3">${c.description}</p>
           </div>
           <div class="mt-6 flex items-center justify-between border-t border-slate-800/60 pt-5 text-xs text-slate-400">
             <span class="font-mono text-[10px] text-slate-500">Issued: ${c.issueDate || 'N/A'}</span>
-            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:underline inline-flex items-center gap-0.5">Verify &rarr;</a>` : ''}
+            ${hasValidUrl ? `<a href="${url}" target="_blank" rel="noopener noreferrer" class="text-sky-400 font-semibold hover:text-sky-300 hover:underline inline-flex items-center gap-0.5">Verify &rarr;</a>` : ''}
           </div>
         </div>
       </article>
@@ -899,7 +902,7 @@ function openProjectModal(index) {
   const p = portfolioProjects[index];
   if (!p) return;
 
-  document.getElementById('modal-img').src = p.image;
+  document.getElementById('modal-img').src = resolveMediaUrl(p.image);
   document.getElementById('modal-title').textContent = p.title;
   document.getElementById('modal-category').textContent = p.category || 'Web Application';
   document.getElementById('modal-desc').textContent = p.longDescription || p.description;

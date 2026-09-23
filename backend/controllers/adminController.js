@@ -494,8 +494,55 @@ async function getAdminDashboardPage(req, res) {
                 </div>
               </div>
               <div>
-                <label class="block text-xs font-medium text-slate-400 mb-1">Image URL</label>
-                <input type="text" id="project-image" class="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-xs text-white outline-none focus:border-indigo-500" />
+                <label class="block text-xs font-medium text-slate-400 mb-1.5">Project Image</label>
+                
+                <!-- Upload Dropzone -->
+                <div id="project-dropzone" class="relative border-2 border-dashed border-slate-700 hover:border-indigo-500/70 bg-slate-900/60 rounded-2xl p-4 transition-all duration-200">
+                  <input type="file" id="project-image-file" accept="image/*" class="hidden" />
+                  
+                  <!-- Initial Upload Prompt -->
+                  <div id="project-upload-prompt" onclick="document.getElementById('project-image-file').click()" class="flex flex-col items-center justify-center gap-2 py-3 cursor-pointer group">
+                    <div class="h-10 w-10 rounded-full bg-indigo-500/10 flex items-center justify-center text-indigo-400 group-hover:scale-110 transition-transform">
+                      <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    </div>
+                    <div class="text-center">
+                      <p class="text-xs font-semibold text-slate-200">
+                        <span class="text-indigo-400 underline">Upload Image</span> or drag & drop here
+                      </p>
+                      <p class="text-[10px] text-slate-500 mt-0.5">PNG, JPG, WEBP, GIF, SVG up to 5MB</p>
+                    </div>
+                  </div>
+
+                  <!-- Uploading spinner -->
+                  <div id="project-upload-spinner" class="hidden flex flex-col items-center justify-center gap-2 py-4">
+                    <div class="animate-spin rounded-full h-7 w-7 border-b-2 border-indigo-400"></div>
+                    <p class="text-xs text-indigo-300 font-medium">Uploading image to server...</p>
+                  </div>
+
+                  <!-- Live Preview inside dropzone -->
+                  <div id="project-preview-container" class="hidden relative rounded-xl overflow-hidden group">
+                    <img id="project-preview-img" src="" alt="Project Image Preview" class="w-full h-44 object-cover rounded-xl bg-slate-950 border border-slate-700/80" />
+                    <div class="absolute inset-0 bg-slate-950/75 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
+                      <button type="button" onclick="document.getElementById('project-image-file').click()" class="px-3 py-1.5 bg-indigo-500 hover:bg-indigo-600 text-white rounded-lg text-xs font-semibold transition cursor-pointer shadow-md">
+                        Change Image
+                      </button>
+                      <button type="button" onclick="removeProjectImage()" class="px-3 py-1.5 bg-rose-500 hover:bg-rose-600 text-white rounded-lg text-xs font-semibold transition cursor-pointer shadow-md">
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Direct URL input (auto-populated or manual) -->
+                <div class="mt-2.5">
+                  <div class="flex justify-between items-center mb-1">
+                    <label class="text-[11px] text-slate-400">Image URL (Auto-filled on upload or enter link):</label>
+                    <span id="project-upload-status" class="text-[10px] font-medium text-emerald-400"></span>
+                  </div>
+                  <input type="text" id="project-image" placeholder="https://... or /uploads/projects/..." class="w-full rounded-xl border border-slate-700 bg-slate-900 px-4 py-2 text-xs text-white outline-none focus:border-indigo-500 transition" />
+                </div>
               </div>
               <div class="pt-4 border-t border-slate-800 flex justify-end gap-3">
                 <button type="button" onclick="closeModal('project')" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold rounded-xl cursor-pointer">Cancel</button>
@@ -1062,6 +1109,153 @@ async function getAdminDashboardPage(req, res) {
             document.getElementById('form-' + type).reset();
             document.getElementById(type + '-id').value = '';
             document.getElementById('modal-' + type + '-title').textContent = 'Add ' + type.charAt(0).toUpperCase() + type.slice(1);
+            if (type === 'project') {
+              resetProjectImagePreview();
+            }
+          }
+
+          // Project Image Upload & Preview Helpers
+          function showProjectPreview(url) {
+            if (!url) {
+              resetProjectImagePreview();
+              return;
+            }
+            const img = document.getElementById('project-preview-img');
+            img.src = url;
+            document.getElementById('project-upload-prompt').classList.add('hidden');
+            document.getElementById('project-upload-spinner').classList.add('hidden');
+            document.getElementById('project-preview-container').classList.remove('hidden');
+          }
+
+          function resetProjectImagePreview() {
+            document.getElementById('project-preview-img').src = '';
+            const fileInput = document.getElementById('project-image-file');
+            if (fileInput) fileInput.value = '';
+            document.getElementById('project-upload-prompt').classList.remove('hidden');
+            document.getElementById('project-upload-spinner').classList.add('hidden');
+            document.getElementById('project-preview-container').classList.add('hidden');
+            const status = document.getElementById('project-upload-status');
+            if (status) status.textContent = '';
+          }
+
+          function removeProjectImage() {
+            document.getElementById('project-image').value = '';
+            resetProjectImagePreview();
+          }
+
+          async function uploadProjectImageFile(file) {
+            if (!file) return;
+
+            if (!file.type.startsWith('image/')) {
+              alert('Please select a valid image file (PNG, JPG, WEBP, GIF, SVG).');
+              return;
+            }
+
+            if (file.size > 5 * 1024 * 1024) {
+              alert('Image file size must be less than 5MB.');
+              return;
+            }
+
+            const promptEl = document.getElementById('project-upload-prompt');
+            const spinnerEl = document.getElementById('project-upload-spinner');
+            const previewEl = document.getElementById('project-preview-container');
+            const statusEl = document.getElementById('project-upload-status');
+
+            promptEl.classList.add('hidden');
+            previewEl.classList.add('hidden');
+            spinnerEl.classList.remove('hidden');
+            if (statusEl) {
+              statusEl.textContent = 'Uploading...';
+              statusEl.className = 'text-[10px] font-medium text-indigo-400';
+            }
+
+            const formData = new FormData();
+            formData.append('image', file);
+
+            try {
+              const res = await fetch('/api/upload?type=projects', {
+                method: 'POST',
+                body: formData,
+                credentials: 'include'
+              });
+
+              const data = await res.json();
+
+              if (!res.ok) {
+                throw new Error(data.message || 'Image upload failed.');
+              }
+
+              document.getElementById('project-image').value = data.url;
+              showProjectPreview(data.url);
+              if (statusEl) {
+                statusEl.textContent = 'Uploaded successfully!';
+                statusEl.className = 'text-[10px] font-medium text-emerald-400';
+                setTimeout(() => {
+                  if (statusEl.textContent === 'Uploaded successfully!') statusEl.textContent = '';
+                }, 4000);
+              }
+            } catch (err) {
+              alert('Upload error: ' + err.message);
+              const currentVal = document.getElementById('project-image').value.trim();
+              if (currentVal) {
+                showProjectPreview(currentVal);
+              } else {
+                resetProjectImagePreview();
+              }
+              if (statusEl) {
+                statusEl.textContent = 'Upload failed';
+                statusEl.className = 'text-[10px] font-medium text-rose-400';
+              }
+            }
+          }
+
+          function initProjectImageHandlers() {
+            const fileInput = document.getElementById('project-image-file');
+            const dropzone = document.getElementById('project-dropzone');
+            const urlInput = document.getElementById('project-image');
+
+            if (fileInput) {
+              fileInput.addEventListener('change', (e) => {
+                if (e.target.files && e.target.files[0]) {
+                  uploadProjectImageFile(e.target.files[0]);
+                }
+              });
+            }
+
+            if (dropzone) {
+              ['dragenter', 'dragover'].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  dropzone.classList.add('border-indigo-400', 'bg-indigo-500/10');
+                });
+              });
+
+              ['dragleave', 'drop'].forEach(eventName => {
+                dropzone.addEventListener(eventName, (e) => {
+                  e.preventDefault();
+                  e.stopPropagation();
+                  dropzone.classList.remove('border-indigo-400', 'bg-indigo-500/10');
+                });
+              });
+
+              dropzone.addEventListener('drop', (e) => {
+                if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]) {
+                  uploadProjectImageFile(e.dataTransfer.files[0]);
+                }
+              });
+            }
+
+            if (urlInput) {
+              urlInput.addEventListener('input', (e) => {
+                const val = e.target.value.trim();
+                if (val) {
+                  showProjectPreview(val);
+                } else {
+                  resetProjectImagePreview();
+                }
+              });
+            }
           }
 
           // CRUD: Populate forms for edit
@@ -1077,7 +1271,12 @@ async function getAdminDashboardPage(req, res) {
             document.getElementById('project-live').value = item.liveUrl;
             document.getElementById('project-category').value = item.category;
             document.getElementById('project-featured').value = String(item.featured);
-            document.getElementById('project-image').value = item.image;
+            document.getElementById('project-image').value = item.image || '';
+            if (item.image) {
+              showProjectPreview(item.image);
+            } else {
+              resetProjectImagePreview();
+            }
             document.getElementById('modal-project-title').textContent = 'Edit Project';
             openModal('project');
           }
@@ -1192,6 +1391,7 @@ async function getAdminDashboardPage(req, res) {
           }
 
           // Initial load
+          initProjectImageHandlers();
           fetchAllData();
         </script>
       </body>

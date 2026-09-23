@@ -7,11 +7,14 @@ const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const trackVisitor = require('./config/trackVisitor');
 
+const path = require('path');
+
 const contactRoutes = require('./routes/contactRoutes');
 const resumeRoutes = require('./routes/resumeRoutes');
 const analyticsRoutes = require('./routes/analyticsRoutes');
 const adminRoutes = require('./routes/adminRoutes');
 const cmsRoutes = require('./routes/cmsRoutes');
+const uploadRoutes = require('./routes/uploadRoutes');
 
 dotenv.config();
 
@@ -71,10 +74,14 @@ app.get('/health', (req, res) => {
   res.status(200).json({ success: true, status: 'ok', version: '1.0.2-updated-resume' });
 });
 
+// Serve static uploaded files (project images, etc.)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.use('/api', contactRoutes);
 app.use('/api', resumeRoutes);
 app.use('/api', analyticsRoutes);
 app.use('/api', cmsRoutes);
+app.use('/api', uploadRoutes);
 app.use(adminRoutes);
 
 app.use((err, req, res, next) => {

@@ -38,3 +38,9 @@ Thumbs.db
 # Temporary files and backups
 backup_temp/
 github-branches
+
+# User uploads
+backend/uploads/**
+!backend/uploads/
+!backend/uploads/**/
+!backend/uploads/**/.gitkeep
